@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.get('/api/info', (req, res) => {
     res.json({
         name: "Centre for Sports Science",
-        location: "Chennai, India",
+        location: "Bangalore, India",
         description: "State-of-the-art sports science facility providing high-performance support to athletes."
     });
 });
