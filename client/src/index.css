@@ -572,6 +572,218 @@ h1, h2, h3, h4, h5, h6, .hero-title, .section-title, .service-title, .nav-logo {
   font-weight: 500;
 }
 
+/* Services Page Styles */
+.core-service-box {
+  background: var(--primary-light);
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--bg-gray);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+.core-service-box:hover {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent);
+}
+
+/* Pricing Table */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--primary-light);
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--bg-gray);
+}
+
+.pricing-table th {
+  background-color: var(--primary-dark);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricing-table tr {
+  transition: var(--transition);
+}
+
+.pricing-table tr:hover {
+  background-color: var(--bg-light);
+}
+
+.pricing-table td {
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+.pricing-table td:nth-child(4) {
+  font-weight: 700;
+}
+
+.discount {
+  color: #ef4444;
+}
+
+.highlight-row {
+  background-color: rgba(13, 137, 191, 0.05);
+}
+
+/* Package Cards */
+.package-category {
+  margin-bottom: 80px;
+}
+
+.category-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: var(--primary-dark);
+}
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.package-card {
+  background: var(--primary-light);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--bg-gray);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.premium-card {
+  border: 2px solid var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.package-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--primary-dark);
+}
+
+.package-card .price {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.package-card .price span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.discount-badge {
+  background: #ef4444;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  vertical-align: middle;
+}
+
+.sub-price {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.package-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  flex-grow: 1;
+}
+
+.package-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.package-features li svg {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.package-ideal {
+  background-color: var(--bg-light);
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  border-left: 4px solid var(--accent);
+}
+
+.premium-banner {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  color: white;
+}
+
+.integrated-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.int-feature {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.int-feature strong {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .hero-grid {
