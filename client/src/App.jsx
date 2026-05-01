@@ -7,6 +7,7 @@ import cssLogo from './assets/css_logo.png';
 // Pages
 import Home from './pages/Home';
 import ServicesPage from './pages/ServicesPage';
+import Contact from './pages/Contact';
 
 const App = () => {
   const [dbStatus, setDbStatus] = useState('checking');
@@ -14,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/info')
-      .then(() => setDbStatus('connected'))
+      .then((res) => setDbStatus(res.data.dbStatus))
       .catch(() => setDbStatus('offline'));
 
     const handleScroll = () => {
@@ -50,6 +51,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
 
       {/* Footer */}
@@ -81,10 +83,10 @@ const App = () => {
             <div className="footer-col">
               <h4>Contact</h4>
               <ul className="footer-links">
-                <li><a href="#">Get in Touch</a></li>
-                <li><a href="#">Book a Consultation</a></li>
-                <li><a href="#">Location Map</a></li>
-                <li><a href="#">Support</a></li>
+                <li><Link to="/contact">Get in Touch</Link></li>
+                <li><Link to="/contact">Book a Consultation</Link></li>
+                <li><Link to="/contact">Location Map</Link></li>
+                <li><Link to="/contact">Support</Link></li>
               </ul>
             </div>
           </div>
