@@ -59,7 +59,7 @@ const Home = () => {
               <div>
                 <div className="about-label">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   About us
                 </div>
@@ -74,10 +74,10 @@ const Home = () => {
                   With a comprehensive performance process, designed to incorporate advanced biomechanics whilst meeting the needs and expectations of athletes across the sporting spectrum, we have a full service range on offer to manage any of your requirements within the end-to-end process.
                 </p>
                 <a href="/services" className="btn-black">ABOUT US</a>
-                
+
                 <div className="trust-badge-wrapper">
                   <div className="trust-badge">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="trust-badge-icon" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="trust-badge-icon" />
                     <div className="trust-badge-content">
                       <div className="trust-badge-title">
                         Top Rated Service <span className="trust-badge-stars">★★★★★</span>
@@ -101,7 +101,7 @@ const Home = () => {
             <div className="services-header">
               <div className="services-label">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 Our services
               </div>
@@ -126,14 +126,14 @@ const Home = () => {
                 </div>
               </div>
             </Reveal>
-            
+
             {/* Card 2 */}
             <Reveal delay={0.2}>
               <div className="service-img-card">
                 <div className="service-img-bg" style={{ backgroundImage: `url(${serviceStrength})` }}></div>
                 <div className="service-img-overlay"></div>
                 <div className="service-img-content">
-                  <h3 className="service-img-title">Strength &<br/>Conditioning</h3>
+                  <h3 className="service-img-title">Strength &<br />Conditioning</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Elite physical preparation programs tailored to your specific sport to maximize power, speed, and endurance.</p>
                     <a href="/services" className="btn-white">LEARN MORE</a>

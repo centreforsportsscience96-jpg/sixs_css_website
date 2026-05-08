@@ -17,7 +17,7 @@ const App = () => {
   const isAuthPage = ['/login', '/signup'].includes(location.pathname);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/info')
+    axios.get('/api/info')
       .then((res) => setDbStatus(res.data.dbStatus))
       .catch(() => setDbStatus('offline'));
 
@@ -58,7 +58,7 @@ const App = () => {
                   <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                   <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                 </svg>
-                <span style={{ fontSize: '12px', fontWeight: 500 }}>{dbStatus.toUpperCase()}</span>
+                <span style={{ fontSize: '12px', fontWeight: 500 }}>{(dbStatus || 'OFFLINE').toUpperCase()}</span>
               </div>
               <Link to="/login" className="nav-signin" aria-label="Sign In">
                 <svg
@@ -94,43 +94,64 @@ const App = () => {
         <footer className="footer">
           <div className="container">
             <div className="footer-grid">
-              <div className="footer-col">
-                <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '24px', letterSpacing: '-0.5px' }}>Centre For<br />Sports Science</h3>
-                <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '250px' }}>Innovation at the peak of human performance.</p>
+              
+              {/* Column 1: Branding & Social */}
+              <div className="footer-col brand-col">
+                <Link to="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '32px', textDecoration: 'none' }}>
+                  <img src={cssLogo} alt="CSS Logo" style={{ height: '28px', width: 'auto' }} />
+                  <span style={{ fontSize: '24px', fontWeight: 800, color: 'var(--primary-dark)', letterSpacing: '-0.5px' }}>
+                    Centre For <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Sports Science</span>
+                  </span>
+                </Link>
+                <p style={{ color: '#888888', marginBottom: '40px', fontSize: '14px', fontWeight: 300, letterSpacing: '0.2px' }}>
+                  Innovation at the peak of human performance.
+                </p>
+                <div className="social-links">
+                  <a href="#" aria-label="LinkedIn" className="social-icon-text">
+                    in
+                  </a>
+                </div>
               </div>
-              <div className="footer-col">
-                <h4>Services</h4>
-                <ul className="footer-links">
-                  <li><Link to="/services">Amateur Training</Link></li>
-                  <li><Link to="/services">Professional Recovery</Link></li>
-                  <li><Link to="/services">Elite Biomechanics</Link></li>
-                  <li><Link to="/services">Nutritional Planning</Link></li>
-                </ul>
+
+              {/* Column 2: Navigation Links Grid */}
+              <div className="footer-col links-col">
+                <div className="links-grid">
+                  <ul className="footer-links">
+                    <li><Link to="/">HOME</Link></li>
+                    <li><a href="/#about-us">ABOUT US</a></li>
+                    <li><Link to="/services">SERVICES</Link></li>
+                    <li><Link to="/login">LOGIN</Link></li>
+                    <li><Link to="/signup">SIGN UP</Link></li>
+                  </ul>
+                  <ul className="footer-links">
+                    <li><a href="#">TECHNOLOGY</a></li>
+                    <li><a href="#">OUR TEAM</a></li>
+                    <li><a href="#">FACILITIES</a></li>
+                    <li><Link to="/contact">CONTACT US</Link></li>
+                  </ul>
+                </div>
               </div>
-              <div className="footer-col">
-                <h4>Company</h4>
-                <ul className="footer-links">
-                  <li><a href="/#about-us">About Us</a></li>
-                  <li><a href="#">Our Team</a></li>
-                  <li><a href="#">Facilities</a></li>
-                  <li><a href="#">Careers</a></li>
-                </ul>
+
+              {/* Column 3: Contact Info */}
+              <div className="footer-col contact-col">
+                <p style={{ fontSize: '20px', color: '#4a4a4a', fontWeight: 300, lineHeight: '1.4', marginBottom: '40px', letterSpacing: '-0.3px' }}>
+                  Centre for sports science, 48 West Gate,<br />
+                  Sree Kanteerava Stadium,<br />
+                  Bangalore.
+                </p>
+                <div className="contact-details">
+                  <a href="tel:+919113535733" className="contact-link">Phone: +91 9113535733</a>
+                  <a href="mailto:admin@sixscss.com" className="contact-link">admin@sixscss.com</a>
+                </div>
               </div>
-              <div className="footer-col">
-                <h4>Contact</h4>
-                <ul className="footer-links">
-                  <li><Link to="/contact">Get in Touch</Link></li>
-                  <li><Link to="/contact">Book a Consultation</Link></li>
-                  <li><Link to="/contact">Location Map</Link></li>
-                  <li><Link to="/contact">Support</Link></li>
-                </ul>
-              </div>
+
             </div>
+            
             <div className="footer-bottom">
               <p>&copy; 2026 Centre For Sports Science. All rights reserved.</p>
-              <div style={{ display: 'flex', gap: '24px' }}>
-                <a href="#" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Privacy Policy</a>
-                <a href="#" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Terms of Service</a>
+              <div className="trust-badge-small">
+                {/* Placeholder for Trust Badge/Designed By as in image */}
+                <span style={{ fontSize: '13px', fontWeight: '500', color: 'var(--text-main)' }}>Top Rated Sports Science Center</span>
               </div>
             </div>
           </div>

@@ -4,9 +4,12 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// MySQL Connection
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -17,51 +20,121 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Use pool.getConnection to check connectivity
+// Test Database Connection
 pool.getConnection((err, connection) => {
     if (err) {
-        console.error('Error connecting to the database:', err.message);
-        console.log('TIP: Ensure your MySQL server (XAMPP/WAMP) is running on port 3306.');
-        return;
+        console.error('-----------------------------------------');
+        console.error('DATABASE CONNECTION ERROR:');
+        console.error('Code:', err.code);
+        console.error('Message:', err.message || 'No error message provided by driver.');
+        
+        if (err.code === 'ECONNREFUSED') {
+            console.error('\nTIP: MySQL server is not responding at ' + (process.env.DB_HOST || 'localhost') + ':3306');
+            console.error('1. Ensure XAMPP/WAMP or MySQL service is RUNNING.');
+            console.error('2. If you are developing locally, check if DB_HOST should be "127.0.0.1".');
+        } else if (err.code === 'ER_ACCESS_DENIED_ERROR') {
+            console.error('\nTIP: Access denied. Check your DB_USER and DB_PASS in .env');
+        } else if (err.code === 'ER_BAD_DB_ERROR') {
+            console.error('\nTIP: Database "' + process.env.DB_NAME + '" does not exist.');
+        }
+        console.error('-----------------------------------------');
+    } else {
+        console.log('Successfully connected to MySQL Database (' + process.env.DB_NAME + ')');
+        connection.release();
     }
-    console.log('Connected to the MySQL database.');
-    connection.release();
 });
 
+// ROOT ROUTE
 app.get('/', (req, res) => {
     res.send('Centre for Sports Science API is running...');
 });
 
-// Example route to fetch some data
+// INFO ROUTE
 app.get('/api/info', (req, res) => {
-    pool.getConnection((err, connection) => {
-        const dbStatus = err ? 'offline' : 'connected';
-        if (connection) connection.release();
-        
-        res.json({
-            name: "Centre for Sports Science",
-            location: "Bangalore, India",
-            description: "State-of-the-art sports science facility providing high-performance support to athletes.",
-            dbStatus: dbStatus
+    res.json({
+        success: true,
+        message: "Centre for Sports Science API is running",
+        db_name: process.env.DB_NAME
+    });
+});
+
+// ENQUIRY ROUTE
+app.post('/api/enquiries', (req, res) => {
+
+    const {
+        fullName,
+        email,
+        phone,
+        location,
+        source,
+        message
+    } = req.body;
+
+    if (
+        !fullName ||
+        !email ||
+        !phone ||
+        !location ||
+        !source ||
+        !message
+    ) {
+
+        return res.status(400).json({
+            success: false,
+            message: 'All fields are required'
         });
-    });
-});
 
-// Route to handle enquiry submissions
-app.post('/api/enquiry', (req, res) => {
-    const { fullName, email, phone, location, source, message } = req.body;
-    
-    const query = 'INSERT INTO enquiries (full_name, email, phone, location, source, message) VALUES (?, ?, ?, ?, ?, ?)';
-    pool.query(query, [fullName, email, phone, location, source, message], (err, result) => {
-        if (err) {
-            console.error('Error inserting enquiry:', err.message);
-            return res.status(500).json({ error: 'Database error: ' + err.message });
+    }
+
+    const query = `
+        INSERT INTO enquiries
+        (
+            full_name,
+            email,
+            phone,
+            location,
+            source,
+            message
+        )
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    pool.query(
+        query,
+        [
+            fullName,
+            email,
+            phone,
+            location,
+            source,
+            message
+        ],
+        (err, result) => {
+
+            if (err) {
+
+                console.error(err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: 'Database Error'
+                });
+
+            }
+
+            res.json({
+                success: true,
+                message: 'Enquiry Submitted Successfully'
+            });
+
         }
-        res.status(200).json({ message: 'Enquiry submitted successfully', id: result.insertId });
-    });
+    );
+
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// START SERVER
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });

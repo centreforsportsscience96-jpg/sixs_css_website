@@ -21,7 +21,7 @@ const Contact = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('http://localhost:5000/api/enquiry', formData);
+      await axios.post('/api/enquiries', formData);
       setStatus('success');
       setFormData({
         fullName: '',
@@ -56,7 +56,7 @@ const Contact = () => {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                   <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyCenter: 'center', flexShrink: 0, justifyContent: 'center' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Phone size={24} color="var(--accent)" />
                     </div>
                     <div>
@@ -66,7 +66,7 @@ const Contact = () => {
                   </div>
 
                   <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyCenter: 'center', flexShrink: 0, justifyContent: 'center' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <MapPin size={24} color="var(--accent)" />
                     </div>
                     <div>
@@ -79,7 +79,7 @@ const Contact = () => {
                   </div>
 
                   <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyCenter: 'center', flexShrink: 0, justifyContent: 'center' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Mail size={24} color="var(--accent)" />
                     </div>
                     <div>
