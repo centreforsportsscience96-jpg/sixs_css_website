@@ -7,6 +7,7 @@ import cssLogo from './assets/css_logo.png';
 // Pages
 import Home from './pages/Home';
 import ServicesPage from './pages/ServicesPage';
+import ContactPage from './pages/Contact.jsx';
 
 const App = () => {
   const [dbStatus, setDbStatus] = useState('checking');
@@ -50,50 +51,74 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
 
       {/* Footer */}
       <footer className="footer">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-col">
-              <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '24px', letterSpacing: '-0.5px' }}>Centre For<br />Sports Science</h3>
-              <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '250px' }}>Innovation at the peak of human performance.</p>
+            <div className="brand-col">
+              <h3 className="footer-brand">
+                Centre For Sports
+                <br />
+                <span className="footer-brand-accent">Science</span>
+              </h3>
+              <p className="footer-desc">Innovation at the peak of human performance.</p>
+              <div style={{ marginTop: '28px' }}>
+                <a
+                  className="social-icon-text"
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  in
+                </a>
+              </div>
             </div>
-            <div className="footer-col">
-              <h4>Services</h4>
-              <ul className="footer-links">
-                <li><Link to="/services">Amateur Training</Link></li>
-                <li><Link to="/services">Professional Recovery</Link></li>
-                <li><Link to="/services">Elite Biomechanics</Link></li>
-                <li><Link to="/services">Nutritional Planning</Link></li>
-              </ul>
+
+            <div className="links-col">
+              <div className="links-grid">
+                <div>
+                  <h4 className="footer-section-title">HOME</h4>
+                  <ul className="footer-links">
+                    <li><Link to="/">Home</Link></li>
+                    <li><a href="/#about-us">About Us</a></li>
+                    <li><Link to="/services">Services</Link></li>
+                    <li><a href="/contact">Login</a></li>
+                    <li><a href="/contact">Sign Up</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="footer-section-title">TECHNOLOGY</h4>
+                  <ul className="footer-links">
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Facilities</a></li>
+                    <li><Link to="/contact">Contact Us</Link></li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="footer-col">
-              <h4>Company</h4>
-              <ul className="footer-links">
-                <li><a href="/#about-us">About Us</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Facilities</a></li>
-                <li><a href="#">Careers</a></li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h4>Contact</h4>
-              <ul className="footer-links">
-                <li><a href="#">Get in Touch</a></li>
-                <li><a href="#">Book a Consultation</a></li>
-                <li><a href="#">Location Map</a></li>
-                <li><a href="#">Support</a></li>
-              </ul>
+
+            <div className="contact-col">
+              <p className="footer-address">
+                Centre for sports science, 48 West Gate,
+                <br />
+                Sree Kanteerava Stadium,
+                <br />
+                Bangalore.
+              </p>
+              <div className="contact-details" style={{ marginTop: '28px' }}>
+                <a className="contact-link" href="tel:+919113535733">Phone: +91 9113535733</a>
+                <a className="contact-link" href="mailto:admin@sixscss.com">admin@sixscss.com</a>
+              </div>
             </div>
           </div>
           <div className="footer-bottom">
             <p>&copy; 2026 Centre For Sports Science. All rights reserved.</p>
-            <div style={{ display: 'flex', gap: '24px' }}>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Privacy Policy</a>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Terms of Service</a>
-            </div>
+            <p className="footer-tagline">Top Rated Sports Science Center</p>
           </div>
         </div>
       </footer>

@@ -488,6 +488,54 @@ h6,
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+.footer-brand {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 24px;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+}
+
+.footer-brand .footer-brand-accent {
+  color: var(--accent);
+}
+
+.footer-address {
+  margin: 0;
+  color: #888888;
+  line-height: 1.65;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.footer-desc {
+  max-width: 250px;
+  color: #b0b0b0;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-section-title {
+  margin: 0 0 20px;
+  color: #888888;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+
+.footer-tagline {
+  margin: 0;
+  color: #888888;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
 .footer-grid {
   display: grid;
   grid-template-columns: 1.2fr 2fr 1.5fr;
@@ -973,4 +1021,4 @@ h6,
   .stats-grid {
     grid-template-columns: 1fr;
   }
-}
+}
