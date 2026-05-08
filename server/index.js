@@ -13,7 +13,7 @@ app.use(express.json());
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    password: process.env.DB_PASS,
+    password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: 10,
@@ -27,7 +27,7 @@ pool.getConnection((err, connection) => {
         console.error('DATABASE CONNECTION ERROR:');
         console.error('Code:', err.code);
         console.error('Message:', err.message || 'No error message provided by driver.');
-        
+
         if (err.code === 'ECONNREFUSED') {
             console.error('\nTIP: MySQL server is not responding at ' + (process.env.DB_HOST || 'localhost') + ':3306');
             console.error('1. Ensure XAMPP/WAMP or MySQL service is RUNNING.');
