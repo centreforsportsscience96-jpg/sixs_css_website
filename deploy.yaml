@@ -1,0 +1,64 @@
+name: Deploy Full Stack App to cPanel
+ 
+# This tells GitHub to run the script every time you push to the 'main' branch
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      # 1. Grab your latest code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+ 
+      # 2. Setup Node.js on the GitHub runner
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use your local node version
+ 
+      # 3. Build the React Frontend
+      - name: Build Frontend
+        run: |
+          cd client
+          npm install
+          npm run build
+        # Note: Make sure your VITE_API_URL in GitHub matches production!
+ 
+      # 4. Deploy Frontend via FTP
+      - name: Deploy Frontend to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./client/dist/
+          server-dir: /public_html/ # Adjust if you use an add-on domain folder
+ 
+      # 5. Deploy Backend (Node.js) via FTP
+      - name: Deploy Backend to cPanel App Folder
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./server/
+          server-dir: /your_node_app_folder/ # CHANGE THIS to your actual backend folder in cPanel
+          exclude: |
+            **/.env*
+            **/node_modules/**
+ 
+      # 6. Restart the Node.js App (The Passenger Trick)
+      # cPanel Node apps run on Phusion Passenger. Touching this file forces a restart.
+      - name: Trigger App Restart
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 2121 # Or 22 depending on your hosting provider
+          script: touch /home/yourusername/your_node_app_folder/tmp/restart.txt
