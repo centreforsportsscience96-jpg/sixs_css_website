@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2');
+const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -9,40 +9,33 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MySQL Connection
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+// MongoDB Connection
+// It will look for MONGO_URI in your .env file
+console.log("Mongo URI Loaded: SUCCESS");
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('✅ Successfully connected to MongoDB Database'))
+    .catch((err) => {
+        console.error('FULL ERROR OBJECT:');
+        console.error(err);
+    });
+
+// --- MONGOOSE SCHEMA & MODEL ---
+// This replaces your MySQL "CREATE TABLE" command
+const enquirySchema = new mongoose.Schema({
+    fullName: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    location: { type: String, required: true },
+    source: { type: String, required: true },
+    message: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
 });
 
-// Test Database Connection
-pool.getConnection((err, connection) => {
-    if (err) {
-        console.error('-----------------------------------------');
-        console.error('DATABASE CONNECTION ERROR:');
-        console.error('Code:', err.code);
-        console.error('Message:', err.message || 'No error message provided by driver.');
+// Create the model (MongoDB will automatically create a collection named "enquiries")
+const Enquiry = mongoose.model('Enquiry', enquirySchema);
 
-        if (err.code === 'ECONNREFUSED') {
-            console.error('\nTIP: MySQL server is not responding at ' + (process.env.DB_HOST || 'localhost') + ':3306');
-            console.error('1. Ensure XAMPP/WAMP or MySQL service is RUNNING.');
-            console.error('2. If you are developing locally, check if DB_HOST should be "127.0.0.1".');
-        } else if (err.code === 'ER_ACCESS_DENIED_ERROR') {
-            console.error('\nTIP: Access denied. Check your DB_USER and DB_PASS in .env');
-        } else if (err.code === 'ER_BAD_DB_ERROR') {
-            console.error('\nTIP: Database "' + process.env.DB_NAME + '" does not exist.');
-        }
-        console.error('-----------------------------------------');
-    } else {
-        console.log('Successfully connected to MySQL Database (' + process.env.DB_NAME + ')');
-        connection.release();
-    }
-});
+// --- ROUTES ---
 
 // ROOT ROUTE
 app.get('/', (req, res) => {
@@ -54,86 +47,52 @@ app.get('/api/info', (req, res) => {
     res.json({
         success: true,
         message: "Centre for Sports Science API is running",
-        db_name: process.env.DB_NAME
+        db_type: "MongoDB"
     });
 });
 
 // ENQUIRY ROUTE
-app.post('/api/enquiries', (req, res) => {
+app.post('/api/enquiries', async (req, res) => {
+    const { fullName, email, phone, location, source, message } = req.body;
 
-    const {
-        fullName,
-        email,
-        phone,
-        location,
-        source,
-        message
-    } = req.body;
-
-    if (
-        !fullName ||
-        !email ||
-        !phone ||
-        !location ||
-        !source ||
-        !message
-    ) {
-
+    // Validation
+    if (!fullName || !email || !phone || !location || !source || !message) {
         return res.status(400).json({
             success: false,
             message: 'All fields are required'
         });
-
     }
 
-    const query = `
-        INSERT INTO enquiries
-        (
-            full_name,
-            email,
-            phone,
-            location,
-            source,
-            message
-        )
-        VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
-    pool.query(
-        query,
-        [
+    try {
+        // Create a new document using the model
+        const newEnquiry = new Enquiry({
             fullName,
             email,
             phone,
             location,
             source,
             message
-        ],
-        (err, result) => {
+        });
 
-            if (err) {
+        // Save it to MongoDB
+        await newEnquiry.save();
 
-                console.error(err);
+        res.json({
+            success: true,
+            message: 'Enquiry Submitted Successfully'
+        });
 
-                return res.status(500).json({
-                    success: false,
-                    message: 'Database Error'
-                });
-
-            }
-
-            res.json({
-                success: true,
-                message: 'Enquiry Submitted Successfully'
-            });
-
-        }
-    );
-
+    } catch (err) {
+        console.error("Failed to save enquiry:", err);
+        res.status(500).json({
+            success: false,
+            message: 'Database Error'
+        });
+    }
 });
 
 // START SERVER
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
