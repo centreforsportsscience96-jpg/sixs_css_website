@@ -21,7 +21,7 @@ const Contact = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('/api/enquiries', formData);
+      await axios.post('/api/enquiries.php', formData);
       setStatus('success');
       setFormData({
         fullName: '',

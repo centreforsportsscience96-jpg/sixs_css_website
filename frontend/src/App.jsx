@@ -14,7 +14,7 @@ const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/info`)
+    axios.get(`${import.meta.env.VITE_API_URL || ''}/api/info.php`)
       .then(() => setDbStatus('connected'))
       .catch(() => setDbStatus('offline'));
 
