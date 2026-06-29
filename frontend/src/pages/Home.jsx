@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Activity, Users } from 'lucide-react';
 import heroImage from '../assets/hero_image.png';
@@ -38,8 +39,8 @@ const Home = () => {
             </Reveal>
             <Reveal delay={0.4}>
               <div className="hero-cta">
-                <a href="#" className="btn btn-primary">Start Your Journey</a>
-                <a href="/services" className="btn btn-outline">Our Services</a>
+                <Link to="/contact" className="btn btn-primary">Start Your Journey</Link>
+                <Link to="/services" className="btn btn-outline">Our Services</Link>
               </div>
             </Reveal>
           </div>
@@ -73,21 +74,7 @@ const Home = () => {
                 <p className="about-text">
                   With a comprehensive performance process, designed to incorporate advanced biomechanics whilst meeting the needs and expectations of athletes across the sporting spectrum, we have a full service range on offer to manage any of your requirements within the end-to-end process.
                 </p>
-                <a href="/services" className="btn-black">ABOUT US</a>
-
-                <div className="trust-badge-wrapper">
-                  <div className="trust-badge">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="trust-badge-icon" />
-                    <div className="trust-badge-content">
-                      <div className="trust-badge-title">
-                        Top Rated Service <span className="trust-badge-stars">★★★★★</span>
-                      </div>
-                      <div className="trust-badge-verify">
-                        <ShieldCheck size={12} color="#10b981" /> Verified by <strong>Trustindex</strong>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Link to="/services" className="btn-black">ABOUT US</Link>
               </div>
             </Reveal>
           </div>
@@ -121,7 +108,7 @@ const Home = () => {
                   <h3 className="service-img-title">Physiotherapy</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Comprehensive rehabilitation and manual therapy to treat injuries and restore optimal mobility and function.</p>
-                    <a href="/services" className="btn-white">LEARN MORE</a>
+                    <Link to="/services" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -136,7 +123,7 @@ const Home = () => {
                   <h3 className="service-img-title">Strength &<br />Conditioning</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Elite physical preparation programs tailored to your specific sport to maximize power, speed, and endurance.</p>
-                    <a href="/services" className="btn-white">LEARN MORE</a>
+                    <Link to="/services" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -151,7 +138,7 @@ const Home = () => {
                   <h3 className="service-img-title">Biomechanics</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Advanced 3D motion capture and force plate analysis to optimize technique and identify injury risks.</p>
-                    <a href="/services" className="btn-white">LEARN MORE</a>
+                    <Link to="/services" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -166,7 +153,7 @@ const Home = () => {
                   <h3 className="service-img-title">Psychology</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Mental conditioning, performance anxiety management, and cognitive strategies for peak competitive focus.</p>
-                    <a href="/services" className="btn-white">LEARN MORE</a>
+                    <Link to="/services" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
