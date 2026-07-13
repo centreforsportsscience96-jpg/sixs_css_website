@@ -87,18 +87,18 @@ const ServicesPage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Physio Consultation</td><td>Single session</td><td>Assessment & treatment</td><td>₹1,000 + GST</td></tr>
-                <tr><td>Follow-up Physio</td><td>Per session</td><td>Continued care</td><td>₹800</td></tr>
-                <tr><td>Rehab Package</td><td>1 Week</td><td>Pain & activation</td><td>₹5,500</td></tr>
-                <tr><td>Rehab Package</td><td>15 Days</td><td>Strength & movement control</td><td>₹11,500</td></tr>
-                <tr><td>Rehab Package</td><td>1 Month</td><td>Full rehab & prevention</td><td>₹21,000</td></tr>
-                <tr><td>Biomechanics Assessment</td><td>Sport-specific testing</td><td>Movement & injury risk</td><td>₹5,000</td></tr>
-                <tr><td>Sports Psychology Testing</td><td>Psychological profiling</td><td>Mental performance</td><td>₹2,000</td></tr>
-                <tr><td>S&C Session</td><td>1 Day</td><td>Strength & power</td><td>₹1,000</td></tr>
-                <tr><td>S&C Package</td><td>1 Month</td><td>Speed, strength & conditioning</td><td>₹15,000</td></tr>
-                <tr><td>S&C Package</td><td>3 Month</td><td>Speed, strength & conditioning</td><td><span className="discount">₹45,000 (10% OFF)</span></td></tr>
-                <tr><td>S&C Package</td><td>6 Month</td><td>Speed, strength & conditioning</td><td><span className="discount">₹90,000 (20% OFF)</span></td></tr>
-                <tr className="highlight-row"><td>Integrated Performance Package</td><td>Multidisciplinary</td><td>Physio + S&C + Psychology</td><td>₹20,000</td></tr>
+                <tr><td>Physio Consultation</td><td>Single session</td><td>Assessment & treatment</td><td>1xxx + GST</td></tr>
+                <tr><td>Follow-up Physio</td><td>Per session</td><td>Continued care</td><td>8xx</td></tr>
+                <tr><td>Rehab Package</td><td>1 Week</td><td>Pain & activation</td><td>5xxx</td></tr>
+                <tr><td>Rehab Package</td><td>15 Days</td><td>Strength & movement control</td><td>1xxxx</td></tr>
+                <tr><td>Rehab Package</td><td>1 Month</td><td>Full rehab & prevention</td><td>2xxxx</td></tr>
+                <tr><td>Biomechanics Assessment</td><td>Sport-specific testing</td><td>Movement & injury risk</td><td>5xxx</td></tr>
+                <tr><td>Sports Psychology Testing</td><td>Psychological profiling</td><td>Mental performance</td><td>2xxx</td></tr>
+                <tr><td>S&C Session</td><td>1 Day</td><td>Strength & power</td><td>1xxx</td></tr>
+                <tr><td>S&C Package</td><td>1 Month</td><td>Speed, strength & conditioning</td><td>1xxxx</td></tr>
+                <tr><td>S&C Package</td><td>3 Month</td><td>Speed, strength & conditioning</td><td><span className="discount">4xxxx (10% OFF)</span></td></tr>
+                <tr><td>S&C Package</td><td>6 Month</td><td>Speed, strength & conditioning</td><td><span className="discount">9xxxx (20% OFF)</span></td></tr>
+                <tr className="highlight-row"><td>Integrated Performance Package</td><td>Multidisciplinary</td><td>Physio + S&C + Psychology</td><td>2xxxx</td></tr>
               </tbody>
             </table>
           </div>
@@ -116,8 +116,8 @@ const ServicesPage = () => {
               <div className="package-grid">
                 <div className="package-card">
                   <h3>Package 1: Consultation & Treatment</h3>
-                  <div className="price">₹1,000 <span>+ GST</span></div>
-                  <div className="sub-price">Follow-up sessions: ₹800 per session</div>
+                  <div className="price">1xxx <span>+ GST</span></div>
+                  <div className="sub-price">Follow-up sessions: 8xx per session</div>
                   <ul className="package-features">
                     <li><Check size={16}/> Detailed injury & movement assessment</li>
                     <li><Check size={16}/> Sports-specific orthopedic testing</li>
@@ -130,7 +130,7 @@ const ServicesPage = () => {
 
                 <div className="package-card">
                   <h3>Package 2: 1-Week Rehabilitation</h3>
-                  <div className="price">₹5,500</div>
+                  <div className="price">5xxx</div>
                   <ul className="package-features">
                     <li><Check size={16}/> Initial assessment & rehab planning</li>
                     <li><Check size={16}/> Multiple supervised physiotherapy sessions</li>
@@ -146,7 +146,7 @@ const ServicesPage = () => {
               <div className="package-grid">
                 <div className="package-card">
                   <h3>Package 3: 15-Day Rehabilitation</h3>
-                  <div className="price">₹11,500</div>
+                  <div className="price">1xxxx</div>
                   <ul className="package-features">
                     <li><Check size={16}/> Comprehensive biomechanical assessment</li>
                     <li><Check size={16}/> Structured rehabilitation progression</li>
@@ -159,7 +159,7 @@ const ServicesPage = () => {
 
                 <div className="package-card premium-card">
                   <h3>Package 4: 1-Month Rehabilitation</h3>
-                  <div className="price">₹21,000</div>
+                  <div className="price">2xxxx</div>
                   <ul className="package-features">
                     <li><Check size={16}/> Detailed assessment & goal setting</li>
                     <li><Check size={16}/> Long-term rehab & performance plan</li>
@@ -178,7 +178,7 @@ const ServicesPage = () => {
             <div className="package-category" style={{ marginTop: '100px' }}>
               <div className="premium-banner">
                 <h2 style={{ color: 'white' }}>Integrated Performance Training Package</h2>
-                <div className="price" style={{ color: 'var(--accent)' }}>₹20,000</div>
+                <div className="price" style={{ color: 'var(--accent)' }}>2xxxx</div>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Strength & Conditioning + Physiotherapy + Sports Psychology</p>
                 <div className="integrated-features">
                   <div className="int-feature"><strong>Physical Assessment:</strong> Injury risk & movement assessment.</div>
@@ -197,7 +197,7 @@ const ServicesPage = () => {
               <div className="package-grid">
                 <div className="package-card">
                   <h3>S&C – 1 Day Session</h3>
-                  <div className="price">₹1,000</div>
+                  <div className="price">1xxx</div>
                   <ul className="package-features">
                     <li><Check size={16}/> Performance assessment</li>
                     <li><Check size={16}/> Strength / Power / Conditioning workout</li>
@@ -209,7 +209,7 @@ const ServicesPage = () => {
 
                 <div className="package-card">
                   <h3>S&C – 1 Month Package</h3>
-                  <div className="price">₹15,000</div>
+                  <div className="price">1xxxx</div>
                   <ul className="package-features">
                     <li><Check size={16}/> Full physical performance assessment</li>
                     <li><Check size={16}/> Customized strength & conditioning program</li>
@@ -223,12 +223,12 @@ const ServicesPage = () => {
               <div className="package-grid" style={{ marginTop: '32px' }}>
                 <div className="package-card">
                   <h3>S&C – 3 Month Package</h3>
-                  <div className="price">₹45,000 <span className="discount-badge">10% OFF</span></div>
+                  <div className="price">4xxxx <span className="discount-badge">10% OFF</span></div>
                   <p style={{ marginTop: '16px', color: 'var(--text-muted)' }}>All features of the 1-month package with extended programming and greater long-term adaptation.</p>
                 </div>
                 <div className="package-card">
                   <h3>S&C – 6 Month Package</h3>
-                  <div className="price">₹90,000 <span className="discount-badge">20% OFF</span></div>
+                  <div className="price">9xxxx <span className="discount-badge">20% OFF</span></div>
                   <p style={{ marginTop: '16px', color: 'var(--text-muted)' }}>Comprehensive long-term athletic development with maximum discount applied.</p>
                 </div>
               </div>
@@ -240,7 +240,7 @@ const ServicesPage = () => {
               <div className="package-grid">
                 <div className="package-card premium-card">
                   <h2 style={{ fontSize: '24px', marginBottom: '8px' }}>Biomechanics Assessment</h2>
-                  <div className="price">₹5,000</div>
+                  <div className="price">5xxx</div>
                   <p style={{ color: 'var(--accent)', fontWeight: '600', marginBottom: '24px' }}>Fix the Movement. Protect the Body. Unlock Performance.</p>
                   <ul className="package-features">
                     <li><Check size={16}/> Sport-specific biomechanical testing</li>
@@ -253,7 +253,7 @@ const ServicesPage = () => {
 
                 <div className="package-card">
                   <h2 style={{ fontSize: '24px', marginBottom: '8px' }}>Sports Psychology Testing</h2>
-                  <div className="price">₹2,000</div>
+                  <div className="price">2xxx</div>
                   <p style={{ color: 'var(--accent)', fontWeight: '600', marginBottom: '24px' }}>Train the Mind That Wins Matches.</p>
                   
                   <h4 style={{ marginBottom: '12px' }}>Parameters Analysed:</h4>

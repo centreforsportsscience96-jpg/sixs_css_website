@@ -34,6 +34,14 @@ const App = () => {
             <img src={cssLogo} alt="CSS Logo" style={{ height: '40px', width: 'auto' }} />
             Centre For Sports Science
           </Link>
+
+          <input type="checkbox" id="nav-toggle" className="nav-toggle-checkbox" />
+          <label htmlFor="nav-toggle" className="nav-toggle-label">
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </label>
+
           <div className="nav-links">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/services" className="nav-link">Services</Link>
@@ -43,7 +51,7 @@ const App = () => {
               <Database size={14} color={dbStatus === 'connected' ? '#10b981' : 'currentColor'} />
               <span style={{ fontSize: '12px' }}>{dbStatus.toUpperCase()}</span>
             </div>
-            <Link to="/contact" className="btn btn-primary" style={{ padding: '8px 20px' }}>Contact Us</Link>
+            <Link to="/contact" className="btn btn-primary" style={{ padding: '10px 20px' }}>Contact Us</Link>
           </div>
         </div>
       </nav>

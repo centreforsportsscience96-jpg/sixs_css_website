@@ -39,7 +39,7 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
-      <section className="bg-dark hero" style={{ minHeight: '40vh', display: 'flex', alignItems: 'center', paddingTop: '100px' }}>
+      <section className="bg-dark hero" style={{ minHeight: '40dvh', display: 'flex', alignItems: 'center', paddingTop: 'calc(100px + env(safe-area-inset-top, 0px))' }}>
         <div className="container">
           <h1 className="hero-title" style={{ fontSize: '56px', marginBottom: '16px' }}>Get in Touch</h1>
           <p className="hero-subtitle">Have a question or want to start your performance journey? We're here to help.</p>
@@ -48,7 +48,7 @@ const Contact = () => {
 
       <section className="section bg-light">
         <div className="container">
-          <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '64px' }}>
+          <div className="contact-grid">
             {/* Contact Info & Map */}
             <div className="contact-info">
               <div className="info-card" style={{ marginBottom: '40px' }}>
@@ -104,7 +104,7 @@ const Contact = () => {
             </div>
 
             {/* Form */}
-            <div className="form-wrapper" style={{ background: 'white', padding: '48px', borderRadius: '24px', boxShadow: 'var(--shadow-md)' }}>
+            <div className="form-wrapper">
               {status === 'success' ? (
                 <div style={{ textAlign: 'center', padding: '40px 0' }}>
                   <CheckCircle size={64} color="#10b981" style={{ marginBottom: '24px' }} />
@@ -116,7 +116,7 @@ const Contact = () => {
                 <form onSubmit={handleSubmit}>
                   <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '32px' }}>Send an Enquiry</h3>
 
-                  <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+                  <div className="form-grid">
                     <div className="input-group">
                       <label style={{ display: 'block', fontWeight: 600, fontSize: '14px', marginBottom: '8px' }}>Full Name</label>
                       <input
