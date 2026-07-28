@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Database } from 'lucide-react';
 import { Routes, Route, Link } from 'react-router-dom';
 import cssLogo from './assets/css_logo.png';
 
@@ -10,14 +8,9 @@ import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/Contact.jsx';
 
 const App = () => {
-  const [dbStatus, setDbStatus] = useState('checking');
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL || ''}/api/info.php`)
-      .then(() => setDbStatus('connected'))
-      .catch(() => setDbStatus('offline'));
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -47,10 +40,6 @@ const App = () => {
             <Link to="/services" className="nav-link">Services</Link>
             <a href="#" className="nav-link">Technology</a>
             <a href="/#about-us" className="nav-link">About Us</a>
-            <div className="db-status" style={{ display: 'flex', alignItems: 'center', gap: '5px', opacity: 0.7 }}>
-              <Database size={14} color={dbStatus === 'connected' ? '#10b981' : 'currentColor'} />
-              <span style={{ fontSize: '12px' }}>{dbStatus.toUpperCase()}</span>
-            </div>
             <Link to="/contact" className="btn btn-primary" style={{ padding: '10px 20px' }}>Contact Us</Link>
           </div>
         </div>
