@@ -11,3 +11,16 @@ create table if not exists enquiries (
 
 grant all on table enquiries to service_role;
 grant usage, select on sequence enquiries_id_seq to service_role;
+
+-- The contact form submits directly from the browser using the Supabase anon key,
+-- so anon needs insert access. RLS stays on so anon can only insert, never read/update/delete.
+alter table enquiries enable row level security;
+
+grant insert on table enquiries to anon;
+grant usage on sequence enquiries_id_seq to anon;
+
+create policy "Allow public enquiry submissions"
+  on enquiries
+  for insert
+  to anon
+  with check (true);

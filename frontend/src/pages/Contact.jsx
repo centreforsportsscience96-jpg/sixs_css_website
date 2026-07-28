@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +21,15 @@ const Contact = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/enquiries`, formData);
+      const { error } = await supabase.from('enquiries').insert({
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location,
+        source: formData.source,
+        message: formData.message,
+      });
+      if (error) throw error;
       setStatus('success');
       setFormData({
         fullName: '',
