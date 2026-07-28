@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Activity, Users } from 'lucide-react';
-import heroImage from '../assets/hero_image.png';
-import servicePhysio from '../assets/service_physio.png';
-import serviceStrength from '../assets/service_strength.png';
-import serviceBiomechanics from '../assets/service_biomechanics.png';
-import servicePsychology from '../assets/service_psychology.png';
+import heroImage from '../assets/hero_image.jpg';
+import servicePhysio from '../assets/service_physio.jpg';
+import serviceStrength from '../assets/service_strength.jpg';
+import serviceBiomechanics from '../assets/service_biomechanics.jpg';
+import servicePsychology from '../assets/service_psychology.jpg';
 
 // Reusable animation wrapper
 const Reveal = ({ children, delay = 0 }) => {
