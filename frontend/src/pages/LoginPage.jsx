@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import cssLogo from '../assets/css_logo.png';
+import { supabase } from '../lib/supabase';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password });
+    setError('');
+    setLoading(true);
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    setLoading(false);
+
+    if (signInError) {
+      setError(signInError.message);
+      return;
+    }
+
+    navigate('/');
   };
 
   const containerVariants = {
@@ -110,10 +128,15 @@ const LoginPage = () => {
             </div>
           </div>
 
+          {error && (
+            <p style={{ color: '#dc2626', fontSize: '14px', marginBottom: '20px' }}>{error}</p>
+          )}
+
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
+            disabled={loading}
             className="btn btn-primary"
             style={{
               width: '100%',
@@ -125,10 +148,12 @@ const LoginPage = () => {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              marginBottom: '32px'
+              marginBottom: '32px',
+              opacity: loading ? 0.7 : 1,
+              cursor: loading ? 'not-allowed' : 'pointer'
             }}
           >
-            Continue
+            {loading ? 'Signing in...' : 'Continue'}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14m-7-7 7 7-7 7" />
             </svg>

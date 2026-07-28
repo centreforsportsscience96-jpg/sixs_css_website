@@ -21,7 +21,7 @@ const Contact = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('/api/enquiries.php', formData);
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/enquiries`, formData);
       setStatus('success');
       setFormData({
         fullName: '',
