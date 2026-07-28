@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import cssLogo from './assets/css_logo.png';
 
 // Pages
 import Home from './pages/Home';
-import ServicesPage from './pages/ServicesPage';
-import ContactPage from './pages/Contact.jsx';
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const ContactPage = lazy(() => import('./pages/Contact.jsx'));
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,11 +45,13 @@ const App = () => {
         </div>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </Suspense>
 
       {/* Footer */}
       <footer className="footer">
