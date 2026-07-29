@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import Seo from '../components/Seo';
+import InstagramIcon from '../components/InstagramIcon';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -46,10 +49,21 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page">
+    <motion.div
+      className="contact-page"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.35, ease: 'easeInOut' }}
+    >
+      <Seo
+        title="Contact Us - Physiotherapy, Strength & Conditioning & Nutrition in Bangalore | Centre For Sports Science"
+        description="Book a physiotherapy, strength & conditioning, or nutrition consultation at Centre For Sports Science, Sree Kanteerava Stadium, Bangalore. Call +91 9113535733 or send an enquiry."
+        path="/contact"
+      />
       <section className="bg-dark hero" style={{ minHeight: '40dvh', display: 'flex', alignItems: 'center', paddingTop: 'calc(100px + env(safe-area-inset-top, 0px))' }}>
         <div className="container">
-          <h1 className="hero-title" style={{ fontSize: '56px', marginBottom: '16px' }}>Get in Touch</h1>
+          <h1 className="hero-title" style={{ fontSize: 'clamp(32px, 6vw, 56px)', marginBottom: '16px' }}>Contact Us for Physiotherapy, S&C & Nutrition in Bangalore</h1>
           <p className="hero-subtitle">Have a question or want to start your performance journey? We're here to help.</p>
         </div>
       </section>
@@ -95,6 +109,23 @@ const Contact = () => {
                       <p style={{ color: 'var(--text-muted)' }}>admin@sixscss.com</p>
                     </div>
                   </div>
+
+                  <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <InstagramIcon size={24} color="var(--accent)" />
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px' }}>Instagram</h4>
+                      <a
+                        href="https://www.instagram.com/css_kanteerava?igsh=MTduZXl6ZXo2NmNkcg=="
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: 'var(--text-muted)', textDecoration: 'none' }}
+                      >
+                        @css_kanteerava
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -113,15 +144,35 @@ const Contact = () => {
 
             {/* Form */}
             <div className="form-wrapper">
+              <AnimatePresence mode="wait">
               {status === 'success' ? (
-                <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                  <CheckCircle size={64} color="#10b981" style={{ marginBottom: '24px' }} />
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  style={{ textAlign: 'center', padding: '40px 0' }}
+                >
+                  <motion.div
+                    initial={{ scale: 0, rotate: -45 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1, ease: 'backOut' }}
+                  >
+                    <CheckCircle size={64} color="#10b981" style={{ marginBottom: '24px' }} />
+                  </motion.div>
                   <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: '16px' }}>Enquiry Sent!</h2>
                   <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Thank you for reaching out. Our team will get back to you shortly.</p>
                   <button className="btn btn-primary" onClick={() => setStatus('idle')}>Send Another Message</button>
-                </div>
+                </motion.div>
               ) : (
-                <form onSubmit={handleSubmit}>
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  onSubmit={handleSubmit}
+                >
                   <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '32px' }}>Send an Enquiry</h3>
 
                   <div className="form-grid">
@@ -217,18 +268,27 @@ const Contact = () => {
                       </>
                     )}
                   </button>
-                  {status === 'error' && (
-                    <p style={{ color: '#ef4444', marginTop: '16px', fontSize: '14px', textAlign: 'center' }}>
-                      Oops! Something went wrong. Please try again.
-                    </p>
-                  )}
-                </form>
+                  <AnimatePresence>
+                    {status === 'error' && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.25 }}
+                        style={{ color: '#ef4444', marginTop: '16px', fontSize: '14px', textAlign: 'center' }}
+                      >
+                        Oops! Something went wrong. Please try again.
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </motion.form>
               )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 };
 

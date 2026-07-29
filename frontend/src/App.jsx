@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import InstagramIcon from './components/InstagramIcon';
 import cssLogo from './assets/css_logo.png';
 
 // Pages
@@ -9,6 +11,7 @@ const ContactPage = lazy(() => import('./pages/Contact.jsx'));
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,9 +26,10 @@ const App = () => {
       {/* Navigation */}
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
-          <Link to="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img src={cssLogo} alt="CSS Logo" style={{ height: '40px', width: 'auto' }} />
-            Centre For Sports Science
+          <Link to="/" className="nav-logo">
+            <img src={cssLogo} alt="CSS Logo" className="nav-logo-img" />
+            <span className="nav-logo-text-full">Centre For Sports Science</span>
+            <span className="nav-logo-text-short">CSS</span>
           </Link>
 
           <input type="checkbox" id="nav-toggle" className="nav-toggle-checkbox" />
@@ -46,11 +50,13 @@ const App = () => {
       </nav>
 
       <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </AnimatePresence>
       </Suspense>
 
       {/* Footer */}
@@ -64,15 +70,24 @@ const App = () => {
                 <span className="footer-brand-accent">Science</span>
               </h3>
               <p className="footer-desc">Innovation at the peak of human performance.</p>
-              <div style={{ marginTop: '28px' }}>
+              <div style={{ marginTop: '28px', display: 'flex', gap: '12px' }}>
                 <a
                   className="social-icon-text"
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/company/centre-for-sports-science-sree-kanteerava-stadium/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
                 >
                   in
+                </a>
+                <a
+                  className="social-icon-text"
+                  href="https://www.instagram.com/css_kanteerava?igsh=MTduZXl6ZXo2NmNkcg=="
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon size={18} />
                 </a>
               </div>
             </div>

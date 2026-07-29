@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
+import Seo from '../components/Seo';
 
 const Reveal = ({ children, delay = 0 }) => {
   return (
@@ -17,8 +18,20 @@ const Reveal = ({ children, delay = 0 }) => {
 
 const ServicesPage = () => {
   return (
-    <main className="page-wrapper" style={{ paddingTop: '120px', minHeight: '100vh', backgroundColor: 'var(--bg-light)' }}>
-      
+    <motion.main
+      className="page-wrapper"
+      style={{ paddingTop: '120px', minHeight: '100vh', backgroundColor: 'var(--bg-light)' }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.35, ease: 'easeInOut' }}
+    >
+      <Seo
+        title="Our Services - Physiotherapy, Strength & Conditioning, Nutrition & Biomechanics in Bangalore | Centre For Sports Science"
+        description="Explore our sports physiotherapy, strength & conditioning, sports nutrition, biomechanics and sports psychology packages at Centre For Sports Science, Sree Kanteerava Stadium, Bangalore."
+        path="/services"
+      />
+
       {/* Header Section */}
       <section className="container" style={{ marginBottom: '80px' }}>
         <Reveal>
@@ -28,11 +41,11 @@ const ServicesPage = () => {
             </svg>
             About the Center
           </div>
-          <h1 className="hero-title" style={{ color: 'var(--primary-dark)', fontSize: '56px', maxWidth: '900px', marginBottom: '24px' }}>
-            Fully integrated, data-driven performance model
+          <h1 className="hero-title" style={{ color: 'var(--primary-dark)', fontSize: 'clamp(32px, 6vw, 56px)', maxWidth: '900px', marginBottom: '24px' }}>
+            Physiotherapy, Strength & Conditioning and Nutrition in Bangalore
           </h1>
           <p className="about-text" style={{ maxWidth: '800px', fontSize: '20px' }}>
-            The Center for Sports Science delivers a fully integrated, data-driven performance model combining sports physiotherapy, biomechanics, strength & conditioning, and sports psychology. We don't just treat injuries — we build resilient, confident, high-performing athletes using measurable scientific parameters.
+            The Center for Sports Science delivers a fully integrated, data-driven performance model combining sports physiotherapy, biomechanics, strength & conditioning, sports nutrition, and sports psychology. Based at Sree Kanteerava Stadium, Bangalore, we don't just treat injuries — we build resilient, confident, high-performing athletes using measurable scientific parameters.
           </p>
         </Reveal>
       </section>
@@ -43,7 +56,7 @@ const ServicesPage = () => {
           <Reveal>
             <h2 className="section-title" style={{ color: 'white', marginBottom: '40px' }}>Our Services</h2>
           </Reveal>
-          <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px' }}>
+          <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '32px' }}>
             <Reveal delay={0.1}>
               <div className="core-service-box">
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Sports Physiotherapy</h3>
@@ -52,17 +65,23 @@ const ServicesPage = () => {
             </Reveal>
             <Reveal delay={0.2}>
               <div className="core-service-box">
-                <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Biomechanics</h3>
-                <p style={{ color: 'rgba(255,255,255,0.8)' }}>Movement analysis and performance optimization.</p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <div className="core-service-box">
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Strength & Conditioning</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Physical development and athletic performance.</p>
               </div>
             </Reveal>
+            <Reveal delay={0.3}>
+              <div className="core-service-box">
+                <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Sports Nutrition</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)' }}>Personalized diet plans to fuel performance and recovery.</p>
+              </div>
+            </Reveal>
             <Reveal delay={0.4}>
+              <div className="core-service-box">
+                <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Biomechanics</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)' }}>Movement analysis and performance optimization.</p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.5}>
               <div className="core-service-box">
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Sports Psychology</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Mental training and competitive readiness.</p>
@@ -92,6 +111,8 @@ const ServicesPage = () => {
                 <tr><td>Rehab Package</td><td>1 Week</td><td>Pain & activation</td><td>5xxx</td></tr>
                 <tr><td>Rehab Package</td><td>15 Days</td><td>Strength & movement control</td><td>1xxxx</td></tr>
                 <tr><td>Rehab Package</td><td>1 Month</td><td>Full rehab & prevention</td><td>2xxxx</td></tr>
+                <tr><td>Nutrition Consultation</td><td>Single session</td><td>Diet assessment & planning</td><td>1xxx</td></tr>
+                <tr><td>Nutrition Plan</td><td>1 Month</td><td>Personalized diet & follow-ups</td><td>8xxx</td></tr>
                 <tr><td>Biomechanics Assessment</td><td>Sport-specific testing</td><td>Movement & injury risk</td><td>5xxx</td></tr>
                 <tr><td>Sports Psychology Testing</td><td>Psychological profiling</td><td>Mental performance</td><td>2xxx</td></tr>
                 <tr><td>S&C Session</td><td>1 Day</td><td>Strength & power</td><td>1xxx</td></tr>
@@ -179,11 +200,12 @@ const ServicesPage = () => {
               <div className="premium-banner">
                 <h2 style={{ color: 'white' }}>Integrated Performance Training Package</h2>
                 <div className="price" style={{ color: 'var(--accent)' }}>2xxxx</div>
-                <p style={{ color: 'rgba(255,255,255,0.8)' }}>Strength & Conditioning + Physiotherapy + Sports Psychology</p>
+                <p style={{ color: 'rgba(255,255,255,0.8)' }}>Strength & Conditioning + Physiotherapy + Nutrition + Sports Psychology</p>
                 <div className="integrated-features">
                   <div className="int-feature"><strong>Physical Assessment:</strong> Injury risk & movement assessment.</div>
                   <div className="int-feature"><strong>Physiotherapy:</strong> Sports physiotherapy for pain-free performance.</div>
                   <div className="int-feature"><strong>Strength Training:</strong> Structured S&C for physical dominance.</div>
+                  <div className="int-feature"><strong>Nutrition:</strong> Personalized diet planning for fuel & recovery.</div>
                   <div className="int-feature"><strong>Mental Training:</strong> Sports psychology for focus & mental toughness.</div>
                   <div className="int-feature"><strong>Monitoring:</strong> Integrated athlete monitoring & progression.</div>
                 </div>
@@ -237,6 +259,37 @@ const ServicesPage = () => {
 
           <Reveal>
             <div className="package-category" style={{ marginTop: '100px' }}>
+              <h2 className="category-title">Sports Nutrition Packages</h2>
+              <div className="package-grid">
+                <div className="package-card">
+                  <h3>Nutrition Consultation</h3>
+                  <div className="price">1xxx</div>
+                  <ul className="package-features">
+                    <li><Check size={16}/> Detailed dietary & lifestyle assessment</li>
+                    <li><Check size={16}/> Body composition & nutrient analysis</li>
+                    <li><Check size={16}/> Sport-specific fueling strategy</li>
+                    <li><Check size={16}/> Hydration & recovery nutrition guidance</li>
+                  </ul>
+                  <div className="package-ideal">Perfect for athletes wanting a personalized diet baseline.</div>
+                </div>
+
+                <div className="package-card">
+                  <h3>Nutrition Plan &ndash; 1 Month</h3>
+                  <div className="price">8xxx</div>
+                  <ul className="package-features">
+                    <li><Check size={16}/> Fully customized meal & macro plan</li>
+                    <li><Check size={16}/> Performance & recovery focused nutrition</li>
+                    <li><Check size={16}/> Weekly progress check-ins</li>
+                    <li><Check size={16}/> Supplement guidance where needed</li>
+                  </ul>
+                  <div className="package-ideal">Best for athletes training toward a specific competition or goal.</div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="package-category" style={{ marginTop: '100px' }}>
               <div className="package-grid">
                 <div className="package-card premium-card">
                   <h2 style={{ fontSize: '24px', marginBottom: '8px' }}>Biomechanics Assessment</h2>
@@ -282,7 +335,7 @@ const ServicesPage = () => {
         </div>
       </section>
 
-    </main>
+    </motion.main>
   );
 };
 

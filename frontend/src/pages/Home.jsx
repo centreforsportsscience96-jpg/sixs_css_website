@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Activity, Users } from 'lucide-react';
+import Seo from '../components/Seo';
+import Counter from '../components/Counter';
 import heroImage from '../assets/hero_image.jpg';
 import servicePhysio from '../assets/service_physio.jpg';
-import serviceStrength from '../assets/service_strength.jpg';
-import serviceBiomechanics from '../assets/service_biomechanics.jpg';
+import serviceStrength from '../assets/service_strength.jpeg';
 import servicePsychology from '../assets/service_psychology.jpg';
+import serviceBiomechanics from '../assets/service_biomechanics.jpeg';
+import serviceNutrition from '../assets/service_nutrition.jpg';
 
 // Reusable animation wrapper
 const Reveal = ({ children, delay = 0 }) => {
@@ -24,17 +27,27 @@ const Reveal = ({ children, delay = 0 }) => {
 
 const Home = () => {
   return (
-    <main>
+    <motion.main
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.35, ease: 'easeInOut' }}
+    >
+      <Seo
+        title="Physiotherapy, Strength & Conditioning & Nutrition in Bangalore | Centre For Sports Science"
+        description="Centre For Sports Science is Bangalore's integrated sports physiotherapy, strength & conditioning, nutrition, biomechanics and sports psychology clinic at Sree Kanteerava Stadium. Book your consultation today."
+        path="/"
+      />
       {/* Hero Section */}
       <section className="hero bg-dark">
         <div className="container hero-grid">
           <div>
             <Reveal>
-              <h1 className="hero-title">Elevate Your Performance with Science</h1>
+              <h1 className="hero-title">Bangalore's Trusted Sports Physiotherapy, Strength & Conditioning and Nutrition Experts</h1>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="hero-subtitle">
-                We merge cutting-edge data analytics, biomechanics, and sports physiology to unlock your true athletic potential. Professional sports science, now available to you.
+                Based at Sree Kanteerava Stadium, Bangalore, we merge cutting-edge data analytics, biomechanics, sports physiology and nutrition science to unlock your true athletic potential. Professional sports science, now available near you.
               </p>
             </Reveal>
             <Reveal delay={0.4}>
@@ -46,7 +59,13 @@ const Home = () => {
           </div>
           <Reveal delay={0.3}>
             <div className="hero-image-wrapper">
-              <img src={heroImage} alt="Sports Science Laboratory" className="hero-image" />
+              <motion.img
+                src={heroImage}
+                alt="Sports physiotherapy and performance science laboratory in Bangalore"
+                className="hero-image"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              />
             </div>
           </Reveal>
         </div>
@@ -65,14 +84,14 @@ const Home = () => {
                   About us
                 </div>
                 <h2 className="about-title">
-                  We're an experienced and elite sports science provider, with top-class athletic development at the very centre of our practice.
+                  Bangalore's experienced and elite sports science provider, with top-class athletic development at the very centre of our practice.
                 </h2>
               </div>
             </Reveal>
             <Reveal delay={0.2}>
               <div style={{ paddingTop: '12px' }}>
                 <p className="about-text">
-                  With a comprehensive performance process, designed to incorporate advanced biomechanics whilst meeting the needs and expectations of athletes across the sporting spectrum, we have a full service range on offer to manage any of your requirements within the end-to-end process.
+                  Located at Sree Kanteerava Stadium in Bangalore, we bring together sports physiotherapy, strength & conditioning, sports nutrition, biomechanics and sports psychology under one roof. If you're searching for physiotherapy near me, strength & conditioning near me, or a nutritionist near me in Bangalore, our multidisciplinary team manages your requirements end-to-end using measurable, data-driven methods.
                 </p>
                 <Link to="/services" className="btn-black">ABOUT US</Link>
               </div>
@@ -93,7 +112,7 @@ const Home = () => {
                 Our services
               </div>
               <h2 className="services-title">
-                We offer a range of sports science services
+                Physiotherapy, Strength & Conditioning, Nutrition and more &mdash; all in Bangalore
               </h2>
             </div>
           </Reveal>
@@ -137,7 +156,7 @@ const Home = () => {
                 <div className="service-img-content">
                   <h3 className="service-img-title">Biomechanics</h3>
                   <div className="service-img-bottom">
-                    <p className="service-img-desc">Advanced 3D motion capture and force plate analysis to optimize technique and identify injury risks.</p>
+                    <p className="service-img-desc">Advanced motion analysis and force plate testing to optimize technique and identify injury risks.</p>
                     <Link to="/services" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
@@ -158,6 +177,21 @@ const Home = () => {
                 </div>
               </div>
             </Reveal>
+
+            {/* Card 5 */}
+            <Reveal delay={0.5}>
+              <div className="service-img-card">
+                <div className="service-img-bg" style={{ backgroundImage: `url(${serviceNutrition})` }}></div>
+                <div className="service-img-overlay"></div>
+                <div className="service-img-content">
+                  <h3 className="service-img-title">Nutrition</h3>
+                  <div className="service-img-bottom">
+                    <p className="service-img-desc">Personalized sports nutrition and diet planning to fuel performance, speed up recovery, and support long-term athlete health.</p>
+                    <Link to="/services" className="btn-white">LEARN MORE</Link>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -167,7 +201,7 @@ const Home = () => {
         <div className="container hero-grid">
           <Reveal>
             <div>
-              <img src={heroImage} alt="Performance Tracking" style={{ width: '100%', borderRadius: 'var(--radius-lg)', opacity: 0.8 }} />
+              <img src={heroImage} alt="Athlete performance tracking and sports science monitoring" style={{ width: '100%', borderRadius: 'var(--radius-lg)', opacity: 0.8 }} />
             </div>
           </Reveal>
           <div>
@@ -223,32 +257,32 @@ const Home = () => {
           <div className="stats-grid">
             <Reveal delay={0.1}>
               <div className="stat-item">
-                <div className="stat-number">10k+</div>
+                <div className="stat-number"><Counter to={10} suffix="k+" /></div>
                 <div className="stat-label">Athletes Analyzed</div>
               </div>
             </Reveal>
             <Reveal delay={0.2}>
               <div className="stat-item">
-                <div className="stat-number">5</div>
+                <div className="stat-number"><Counter to={5} /></div>
                 <div className="stat-label">Advanced Labs</div>
               </div>
             </Reveal>
             <Reveal delay={0.3}>
               <div className="stat-item">
-                <div className="stat-number">98%</div>
+                <div className="stat-number"><Counter to={98} suffix="%" /></div>
                 <div className="stat-label">Recovery Rate</div>
               </div>
             </Reveal>
             <Reveal delay={0.4}>
               <div className="stat-item">
-                <div className="stat-number">20+</div>
+                <div className="stat-number"><Counter to={20} suffix="+" /></div>
                 <div className="stat-label">Olympic Medals</div>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
-    </main>
+    </motion.main>
   );
 };
 
