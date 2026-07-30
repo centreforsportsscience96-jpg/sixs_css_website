@@ -2,6 +2,8 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import InstagramIcon from './components/InstagramIcon';
+import LinkedInIcon from './components/LinkedInIcon';
+import WhatsAppIcon from './components/WhatsAppIcon';
 import cssLogo from './assets/css_logo.png';
 
 // Pages
@@ -78,7 +80,7 @@ const App = () => {
                   rel="noreferrer"
                   aria-label="LinkedIn"
                 >
-                  in
+                  <LinkedInIcon size={18} />
                 </a>
                 <a
                   className="social-icon-text"
@@ -88,6 +90,15 @@ const App = () => {
                   aria-label="Instagram"
                 >
                   <InstagramIcon size={18} />
+                </a>
+                <a
+                  className="social-icon-text"
+                  href="https://wa.me/919113535733"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="WhatsApp"
+                >
+                  <WhatsAppIcon size={18} />
                 </a>
               </div>
             </div>

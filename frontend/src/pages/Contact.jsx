@@ -112,7 +112,7 @@ const Contact = () => {
 
                   <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
                     <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(13, 137, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <InstagramIcon size={24} color="var(--accent)" />
+                      <InstagramIcon size={24} gradient={false} color="var(--accent)" />
                     </div>
                     <div>
                       <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px' }}>Instagram</h4>
