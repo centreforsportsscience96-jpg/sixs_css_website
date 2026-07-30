@@ -5,10 +5,28 @@ import { supabase } from '../lib/supabase';
 import Seo from '../components/Seo';
 import InstagramIcon from '../components/InstagramIcon';
 
+const COUNTRY_CODES = [
+  { code: '+91', label: 'India (+91)', length: 10 },
+  { code: '+1', label: 'US / Canada (+1)', length: 10 },
+  { code: '+44', label: 'United Kingdom (+44)', length: 10 },
+  { code: '+61', label: 'Australia (+61)', length: 9 },
+  { code: '+971', label: 'UAE (+971)', length: 9 },
+  { code: '+65', label: 'Singapore (+65)', length: 8 },
+  { code: '+966', label: 'Saudi Arabia (+966)', length: 9 },
+  { code: '+974', label: 'Qatar (+974)', length: 8 },
+  { code: '+94', label: 'Sri Lanka (+94)', length: 9 },
+  { code: '+977', label: 'Nepal (+977)', length: 10 },
+  { code: '+880', label: 'Bangladesh (+880)', length: 10 },
+];
+
+const getPhoneLength = (countryCode) =>
+  COUNTRY_CODES.find((c) => c.code === countryCode)?.length ?? 15;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
+    countryCode: '+91',
     phone: '',
     location: '',
     source: '',
@@ -20,6 +38,23 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleNameChange = (e) => {
+    const lettersOnly = e.target.value.replace(/[^A-Za-z\s'-]/g, '');
+    setFormData({ ...formData, fullName: lettersOnly });
+  };
+
+  const handlePhoneChange = (e) => {
+    const maxLength = getPhoneLength(formData.countryCode);
+    const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, maxLength);
+    setFormData({ ...formData, phone: digitsOnly });
+  };
+
+  const handleCountryCodeChange = (e) => {
+    const newCode = e.target.value;
+    const maxLength = getPhoneLength(newCode);
+    setFormData({ ...formData, countryCode: newCode, phone: formData.phone.slice(0, maxLength) });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -27,7 +62,7 @@ const Contact = () => {
       const { error } = await supabase.from('enquiries').insert({
         full_name: formData.fullName,
         email: formData.email,
-        phone: formData.phone,
+        phone: `${formData.countryCode} ${formData.phone}`,
         location: formData.location,
         source: formData.source,
         message: formData.message,
@@ -37,6 +72,7 @@ const Contact = () => {
       setFormData({
         fullName: '',
         email: '',
+        countryCode: '+91',
         phone: '',
         location: '',
         source: '',
@@ -182,7 +218,9 @@ const Contact = () => {
                         type="text"
                         name="fullName"
                         value={formData.fullName}
-                        onChange={handleChange}
+                        onChange={handleNameChange}
+                        pattern="[A-Za-z\s'-]+"
+                        title="Only letters are allowed"
                         required
                         placeholder="John Doe"
                         style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '15px' }}
@@ -202,15 +240,35 @@ const Contact = () => {
                     </div>
                     <div className="input-group">
                       <label style={{ display: 'block', fontWeight: 600, fontSize: '14px', marginBottom: '8px' }}>Phone Number</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        placeholder="+91 00000 00000"
-                        style={{ width: '100%', padding: '12px 16px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '15px' }}
-                      />
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <select
+                          name="countryCode"
+                          value={formData.countryCode}
+                          onChange={handleCountryCodeChange}
+                          aria-label="Country code"
+                          style={{ flex: '0 0 auto', padding: '12px 8px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '15px', backgroundColor: 'white' }}
+                        >
+                          {COUNTRY_CODES.map((c) => (
+                            <option key={c.code} value={c.code}>{c.code}</option>
+                          ))}
+                        </select>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handlePhoneChange}
+                          inputMode="numeric"
+                          pattern={`[0-9]{${getPhoneLength(formData.countryCode)}}`}
+                          maxLength={getPhoneLength(formData.countryCode)}
+                          title={`Enter exactly ${getPhoneLength(formData.countryCode)} digits`}
+                          required
+                          placeholder="9113535733"
+                          style={{ flex: 1, minWidth: 0, padding: '12px 16px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '15px' }}
+                        />
+                      </div>
+                      <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>
+                        {formData.phone.length}/{getPhoneLength(formData.countryCode)} digits
+                      </p>
                     </div>
                     <div className="input-group">
                       <label style={{ display: 'block', fontWeight: 600, fontSize: '14px', marginBottom: '8px' }}>Location/City</label>
