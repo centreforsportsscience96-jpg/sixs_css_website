@@ -9,6 +9,7 @@ import cssLogo from './assets/css_logo.png';
 // Pages
 import Home from './pages/Home';
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const TechnologyPage = lazy(() => import('./pages/TechnologyPage'));
 const ContactPage = lazy(() => import('./pages/Contact.jsx'));
 
 const App = () => {
@@ -23,10 +24,16 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Home and Contact have a dark hero directly under the nav, so the transparent
+  // white-text navbar is legible there before scrolling. Other pages don't have that
+  // dark backdrop, so the navbar must always use its solid, dark-text style.
+  const hasDarkHero = location.pathname === '/' || location.pathname === '/contact';
+  const navIsSolid = isScrolled || !hasDarkHero;
+
   return (
     <div className="app-wrapper">
       {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar ${navIsSolid ? 'scrolled' : ''}`}>
         <div className="container nav-container">
           <Link to="/" className="nav-logo">
             <img src={cssLogo} alt="CSS Logo" className="nav-logo-img" />
@@ -44,7 +51,7 @@ const App = () => {
           <div className="nav-links">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/services" className="nav-link">Services</Link>
-            <a href="#" className="nav-link">Technology</a>
+            <Link to="/technology" className="nav-link">Technology</Link>
             <a href="/#about-us" className="nav-link">About Us</a>
             <Link to="/contact" className="btn btn-primary" style={{ padding: '10px 20px' }}>Contact Us</Link>
           </div>
@@ -56,6 +63,7 @@ const App = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/technology" element={<TechnologyPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </AnimatePresence>
@@ -118,9 +126,9 @@ const App = () => {
                 <div>
                   <h4 className="footer-section-title">TECHNOLOGY</h4>
                   <ul className="footer-links">
-                    <li><a href="#">Technology</a></li>
-                    <li><a href="#">Our Team</a></li>
-                    <li><a href="#">Facilities</a></li>
+                    <li><Link to="/technology">Technology</Link></li>
+                    <li><a href="/#our-director">Our Team</a></li>
+                    <li><Link to="/technology">Facilities</Link></li>
                     <li><Link to="/contact">Contact Us</Link></li>
                   </ul>
                 </div>

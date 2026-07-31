@@ -25,7 +25,7 @@ const Counter = ({ to, suffix = '', duration = 1.6 }) => {
 
   return (
     <span ref={ref}>
-      {value}
+      {value.toLocaleString('en-IN')}
       {suffix}
     </span>
   );
