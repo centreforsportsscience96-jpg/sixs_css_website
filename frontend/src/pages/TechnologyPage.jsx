@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Seo from '../components/Seo';
@@ -94,6 +93,12 @@ const TechnologyPage = () => {
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Daily HRV and recovery monitoring compatible with WHOOP, Oura, and Polar.</p>
               </div>
             </Reveal>
+            <Reveal delay={0.5}>
+              <div className="core-service-box">
+                <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Physiological & Movement Screening</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)' }}>Body composition analysis, cardiovascular testing, and posture & movement screening.</p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -168,6 +173,35 @@ const TechnologyPage = () => {
                 <li><Check size={16} /> Box breathing and 4-7-8 technique for parasympathetic recovery</li>
                 <li><Check size={16} /> Post-exertion breathing protocols for faster recovery</li>
               </ul>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="package-category" style={{ marginTop: '100px' }}>
+              <h2 className="category-title">Physiological & Movement Screening</h2>
+              <p className="about-text" style={{ maxWidth: '800px' }}>
+                Before we build a program, we establish a baseline — cardiovascular fitness, body composition, and how well an athlete actually moves.
+              </p>
+              <div className="package-grid">
+                <div className="package-card">
+                  <h3>Cardiovascular & Body Composition</h3>
+                  <ul className="package-features">
+                    <li><Check size={16} /> Resting heart rate (RHR) and blood pressure</li>
+                    <li><Check size={16} /> Recovery heart rate post-activity</li>
+                    <li><Check size={16} /> Step test and VO2 submax aerobic capacity estimate</li>
+                    <li><Check size={16} /> Body composition analysis — fat %, muscle mass, hydration</li>
+                  </ul>
+                </div>
+                <div className="package-card">
+                  <h3>Posture & Movement Screening</h3>
+                  <ul className="package-features">
+                    <li><Check size={16} /> Static posture analysis — head, shoulder, spine, pelvis alignment</li>
+                    <li><Check size={16} /> Dynamic movement screening — squat, lunge, jump landing</li>
+                    <li><Check size={16} /> Joint mobility testing — ankle, hip, thoracic spine</li>
+                    <li><Check size={16} /> Functional Movement Screening (FMS) for asymmetry detection</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>

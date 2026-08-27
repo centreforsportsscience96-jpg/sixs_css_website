@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShieldCheck, TrendingUp, Activity, Users } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Activity, Users, Check } from 'lucide-react';
 import Seo from '../components/Seo';
 import Counter from '../components/Counter';
 import heroImage from '../assets/hero_image.jpg';
@@ -126,6 +126,35 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Sixs Sports Ecosystem Section */}
+      <section className="section bg-light">
+        <div className="container">
+          <Reveal>
+            <div className="about-label">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Part of Sixs Sports
+            </div>
+            <h2 className="about-title" style={{ maxWidth: '800px' }}>
+              India's most comprehensive private sports science ecosystem
+            </h2>
+            <p className="about-text" style={{ maxWidth: '800px' }}>
+              Centre For Sports Science is the research and implementation hub of Sixs Sports, the flagship sports science brand of the Trishe Group — bridging the gap between grassroots potential and elite athletic performance across India.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <ul className="package-features" style={{ maxWidth: '800px', columns: 1 }}>
+              <li><Check size={16} /> State-of-the-art sports science centers delivering elite services in strength & conditioning, physiotherapy, nutrition, brain training, and recovery.</li>
+              <li><Check size={16} /> Strategic partnerships with national and state-level institutions, federations, and educational bodies to mainstream sports science across India.</li>
+              <li><Check size={16} /> Technology-enabled platforms and athlete intelligence systems for data-driven performance tracking and personalized athletic pathways.</li>
+              <li><Check size={16} /> Capacity-building programs for coaches, PE educators, and sports professionals, transferring scientific knowledge to the grassroots.</li>
+              <li><Check size={16} /> Inclusion-focused initiatives that uncover talent from tribal, rural, and underserved communities, ensuring no potential goes unnoticed.</li>
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section className="services-section">
         <div className="container">
@@ -222,6 +251,50 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Why Sports Science Matters Section */}
+      <section className="section">
+        <div className="container">
+          <Reveal>
+            <h2 className="section-title" style={{ textAlign: 'center' }}>Why Data-Driven Sports Science Matters</h2>
+            <p className="section-subtitle" style={{ textAlign: 'center', margin: '0 auto 40px', maxWidth: '700px' }}>
+              Conventional sports development relies on manual testing, limited metrics, and subjective evaluation — often resulting in overlooked talent and incomplete performance data.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="values-grid">
+              <div className="value-item">
+                <div className="value-icon-wrapper"><Activity size={24} /></div>
+                <div className="value-content">
+                  <h3>Manual Inefficiencies</h3>
+                  <p>Human bias and inconsistent testing miss talent that data would catch.</p>
+                </div>
+              </div>
+              <div className="value-item">
+                <div className="value-icon-wrapper"><TrendingUp size={24} /></div>
+                <div className="value-content">
+                  <h3>Disconnected Tracking</h3>
+                  <p>Physical, cognitive, and nutritional data are rarely integrated into one picture.</p>
+                </div>
+              </div>
+              <div className="value-item">
+                <div className="value-icon-wrapper"><ShieldCheck size={24} /></div>
+                <div className="value-content">
+                  <h3>No Unified Monitoring</h3>
+                  <p>Without a single system, injury risks and progress go unnoticed until it's too late.</p>
+                </div>
+              </div>
+              <div className="value-item">
+                <div className="value-icon-wrapper"><Users size={24} /></div>
+                <div className="value-content">
+                  <h3>Undiscovered Talent</h3>
+                  <p>A vast pool of potential in schools and communities stays hidden without a scientific approach.</p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Values Section */}
       <section className="section bg-dark">
         <div className="container hero-grid">
@@ -314,7 +387,10 @@ const Home = () => {
                 <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '4px' }}>Antony Chacko</h3>
                 <p style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: '16px' }}>Director, Centre For Sports Science</p>
                 <p className="about-text">
-                  Antony Chacko brings a rare blend of sports and technology expertise to Centre For Sports Science. A former Karnataka cricket team player, he went on to build a career in software engineering and as a Technical Lead at Microsoft (EMEA), developing deep expertise in data analytics. For the past four years, he has directed the Sports Science Centre, leading national talent identification initiatives with the Department of Youth Empowerment and Sports, training over 7,500 PE teachers through Train-the-Trainer workshops, and driving CSR programs that have reached 100+ schools and over 1 lakh students across Karnataka.
+                  Antony Chacko brings a rare blend of sports and technology expertise to Centre For Sports Science. A former Karnataka cricket team player, he went on to build a career in software engineering and as a Technical Lead at Microsoft (EMEA), developing deep expertise in data analytics and root cause analysis. For the past four years, he has directed the Sports Science Centre, leading national talent identification initiatives with the Department of Youth Empowerment and Sports, Social Welfare, and Tribal Departments — including dedicated outreach programs for the Siddhi Tribal Community and athlete scouting for Delhi Sports University.
+                </p>
+                <p className="about-text">
+                  He has trained over 7,500 PE teachers through Train-the-Trainer Sports Science Workshops and driven CSR programs reaching 100+ schools and over 1 lakh students across Karnataka. He also oversees sports science centers in Mandya, Delhi Sports University, and Basavanagudi Aquatic Centre, promoting tech-driven, affordable athlete development platforms powered by data and science.
                 </p>
               </div>
             </div>
