@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Activity, Users } from 'lucide-react';
@@ -153,7 +153,7 @@ const Home = () => {
                   <h3 className="service-img-title">Physiotherapy</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Comprehensive rehabilitation and manual therapy to treat injuries and restore optimal mobility and function.</p>
-                    <Link to="/services" className="btn-white">LEARN MORE</Link>
+                    <Link to="/services/physiotherapy" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ const Home = () => {
                   <h3 className="service-img-title">Strength &<br />Conditioning</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Elite physical preparation programs tailored to your specific sport to maximize power, speed, and endurance.</p>
-                    <Link to="/services" className="btn-white">LEARN MORE</Link>
+                    <Link to="/services/strength-conditioning" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@ const Home = () => {
                   <h3 className="service-img-title">Biomechanics</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Advanced motion analysis and force plate testing to optimize technique and identify injury risks.</p>
-                    <Link to="/services" className="btn-white">LEARN MORE</Link>
+                    <Link to="/services/biomechanics" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -198,7 +198,7 @@ const Home = () => {
                   <h3 className="service-img-title">Psychology</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Mental conditioning, performance anxiety management, and cognitive strategies for peak competitive focus.</p>
-                    <Link to="/services" className="btn-white">LEARN MORE</Link>
+                    <Link to="/services/psychology" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>
@@ -213,7 +213,7 @@ const Home = () => {
                   <h3 className="service-img-title">Nutrition</h3>
                   <div className="service-img-bottom">
                     <p className="service-img-desc">Personalized sports nutrition and diet planning to fuel performance, speed up recovery, and support long-term athlete health.</p>
-                    <Link to="/services" className="btn-white">LEARN MORE</Link>
+                    <Link to="/services/nutrition" className="btn-white">LEARN MORE</Link>
                   </div>
                 </div>
               </div>

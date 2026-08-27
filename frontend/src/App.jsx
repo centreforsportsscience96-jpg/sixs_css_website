@@ -9,6 +9,7 @@ import cssLogo from './assets/css_logo.png';
 // Pages
 import Home from './pages/Home';
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
 const TechnologyPage = lazy(() => import('./pages/TechnologyPage'));
 const ContactPage = lazy(() => import('./pages/Contact.jsx'));
 
@@ -63,6 +64,7 @@ const App = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:slug" element={<ServiceDetailPage />} />
             <Route path="/technology" element={<TechnologyPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
