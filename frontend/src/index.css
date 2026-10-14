@@ -810,6 +810,10 @@ h6,
 
 /* Services Page Styles */
 .core-service-box {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   background: var(--primary-light);
   padding: 32px;
   border-radius: var(--radius);

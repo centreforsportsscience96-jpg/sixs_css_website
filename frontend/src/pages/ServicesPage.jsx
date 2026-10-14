@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 import Seo from '../components/Seo';
@@ -58,34 +59,34 @@ const ServicesPage = () => {
           </Reveal>
           <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '32px' }}>
             <Reveal delay={0.1}>
-              <div className="core-service-box">
+              <Link to="/services/physiotherapy" className="core-service-box" style={{ display: 'block', textDecoration: 'none' }}>
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Sports Physiotherapy</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Evidence-based injury treatment and rehabilitation.</p>
-              </div>
+              </Link>
             </Reveal>
             <Reveal delay={0.2}>
-              <div className="core-service-box">
+              <Link to="/services/strength-conditioning" className="core-service-box" style={{ display: 'block', textDecoration: 'none' }}>
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Strength & Conditioning</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Physical development and athletic performance.</p>
-              </div>
+              </Link>
             </Reveal>
             <Reveal delay={0.3}>
-              <div className="core-service-box">
+              <Link to="/services/nutrition" className="core-service-box" style={{ display: 'block', textDecoration: 'none' }}>
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Sports Nutrition</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Personalized diet plans to fuel performance and recovery.</p>
-              </div>
+              </Link>
             </Reveal>
             <Reveal delay={0.4}>
-              <div className="core-service-box">
+              <Link to="/services/biomechanics" className="core-service-box" style={{ display: 'block', textDecoration: 'none' }}>
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Biomechanics</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Movement analysis and performance optimization.</p>
-              </div>
+              </Link>
             </Reveal>
             <Reveal delay={0.5}>
-              <div className="core-service-box">
+              <Link to="/services/psychology" className="core-service-box" style={{ display: 'block', textDecoration: 'none' }}>
                 <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '20px' }}>Sports Psychology</h3>
                 <p style={{ color: 'rgba(255,255,255,0.8)' }}>Mental training and competitive readiness.</p>
-              </div>
+              </Link>
             </Reveal>
           </div>
         </div>
