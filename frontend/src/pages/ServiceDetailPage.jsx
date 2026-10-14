@@ -19,9 +19,10 @@ const Reveal = ({ children, delay = 0 }) => {
 };
 
 const ServiceDetailPage = () => {
-  const { category } = useParams();
+  const { category, slug } = useParams();
   const location = useLocation();
-  const service = servicesData[category];
+  const serviceKey = category || slug;
+  const service = servicesData[serviceKey];
 
   if (!service) {
     return <Navigate to="/services" replace />;
@@ -45,7 +46,7 @@ const ServiceDetailPage = () => {
       <Seo
         title={`${service.title} in Bangalore | Centre For Sports Science`}
         description={service.description}
-        path={`/services/${category}`}
+        path={`/services/${serviceKey}`}
       />
 
       {/* Header */}
