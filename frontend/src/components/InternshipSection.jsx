@@ -93,21 +93,28 @@ const InternshipSection = ({ id = 'internships' }) => {
                     <div className="internship-fee-row">
                       <div className="fee-info">
                         <span className="fee-title">BPT &ndash; Internship</span>
-                        <span className="fee-duration">15 Days clinical immersion</span>
+                        <span className="fee-duration">15 Days clinical posting</span>
                       </div>
                       <div className="fee-amount">₹1,770</div>
                     </div>
                     <div className="internship-fee-row">
                       <div className="fee-info">
-                        <span className="fee-title">BPT &ndash; Clinical Posting</span>
-                        <span className="fee-duration">1 Month full-time posting</span>
+                        <span className="fee-title">BPT &ndash; Internship</span>
+                        <span className="fee-duration">1 Month clinical posting</span>
                       </div>
                       <div className="fee-amount">₹2,950</div>
                     </div>
                     <div className="internship-fee-row">
                       <div className="fee-info">
                         <span className="fee-title">MPT &ndash; Clinical Posting</span>
-                        <span className="fee-duration">1 Month advanced posting</span>
+                        <span className="fee-duration">15 Days clinical posting</span>
+                      </div>
+                      <div className="fee-amount">₹2,950</div>
+                    </div>
+                    <div className="internship-fee-row">
+                      <div className="fee-info">
+                        <span className="fee-title">MPT &ndash; Internship</span>
+                        <span className="fee-duration">1 Month advanced internship</span>
                       </div>
                       <div className="fee-amount">₹5,900</div>
                     </div>
@@ -119,7 +126,7 @@ const InternshipSection = ({ id = 'internships' }) => {
                     <Calendar size={14} /> 15 Days / 1 Month
                   </span>
                   <span className="internship-meta-pill">
-                    <Users size={14} /> BPT & MPT Candidates
+                    <Users size={14} /> BPT & MPT Students / Interns
                   </span>
                 </div>
               </div>
@@ -166,27 +173,27 @@ const InternshipSection = ({ id = 'internships' }) => {
                   <div className="internship-fee-list">
                     <div className="internship-fee-row">
                       <div className="fee-info">
-                        <span className="fee-title">BPT &ndash; Internship</span>
-                        <span className="fee-duration">Sports Nutrition Immersion</span>
+                        <span className="fee-title">B.Sc &ndash; Internship</span>
+                        <span className="fee-duration">1 Month sports nutrition immersion</span>
                       </div>
                       <div className="fee-amount">₹2,950</div>
                     </div>
                     <div className="internship-fee-row">
                       <div className="fee-info">
-                        <span className="fee-title">MPT &ndash; Internship</span>
-                        <span className="fee-duration">Advanced Sports Nutrition Immersion</span>
+                        <span className="fee-title">M.Sc &ndash; Internship</span>
+                        <span className="fee-duration">1 Month advanced performance nutrition</span>
                       </div>
-                      <div className="fee-amount">₹2,950</div>
+                      <div className="fee-amount">₹4,720</div>
                     </div>
                   </div>
                 </div>
 
                 <div className="internship-meta">
                   <span className="internship-meta-pill">
-                    <Calendar size={14} /> Internship Program
+                    <Calendar size={14} /> 1 Month
                   </span>
                   <span className="internship-meta-pill">
-                    <Users size={14} /> BPT & MPT Candidates
+                    <Users size={14} /> B.Sc & M.Sc Nutrition Students / Graduates
                   </span>
                 </div>
               </div>
