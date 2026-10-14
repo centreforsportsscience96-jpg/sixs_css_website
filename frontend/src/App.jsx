@@ -53,6 +53,7 @@ const App = () => {
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/services" className="nav-link">Services</Link>
             <Link to="/technology" className="nav-link">Technology</Link>
+            <a href="/#internships" className="nav-link">Internships</a>
             <a href="/#about-us" className="nav-link">About Us</a>
             <Link to="/contact" className="btn btn-primary" style={{ padding: '10px 20px' }}>Contact Us</Link>
           </div>
@@ -121,6 +122,7 @@ const App = () => {
                     <li><Link to="/">Home</Link></li>
                     <li><a href="/#about-us">About Us</a></li>
                     <li><Link to="/services">Services</Link></li>
+                    <li><a href="/#internships">Internships</a></li>
                     <li><a href="/contact">Login</a></li>
                     <li><a href="/contact">Sign Up</a></li>
                   </ul>

@@ -10,6 +10,7 @@ import serviceStrength from '../assets/service_strength.jpeg';
 import servicePsychology from '../assets/service_psychology.jpg';
 import serviceBiomechanics from '../assets/service_biomechanics.jpeg';
 import serviceNutrition from '../assets/service_nutrition.jpg';
+import InternshipSection from '../components/InternshipSection';
 
 // Reusable animation wrapper
 const Reveal = ({ children, delay = 0 }) => {
@@ -397,6 +398,9 @@ const Home = () => {
           </Reveal>
         </div>
       </section>
+
+      {/* Internship & Fellowship Section */}
+      <InternshipSection id="internships" />
 
       {/* Partnerships Section */}
       <section className="section">

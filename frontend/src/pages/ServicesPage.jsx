@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 import Seo from '../components/Seo';
+import InternshipSection from '../components/InternshipSection';
 
 const Reveal = ({ children, delay = 0 }) => {
   return (
@@ -335,6 +336,9 @@ const ServicesPage = () => {
 
         </div>
       </section>
+
+      {/* Internship & Fellowship Section */}
+      <InternshipSection id="internships" />
 
     </motion.main>
   );
