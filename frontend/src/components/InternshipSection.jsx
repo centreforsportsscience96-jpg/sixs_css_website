@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  GraduationCap, 
-  Check, 
-  Phone, 
-  Award, 
-  Activity, 
-  Apple, 
-  MapPin, 
-  Calendar, 
+import {
+  GraduationCap,
+  Check,
+  Phone,
+  Award,
+  Activity,
+  Apple,
+  MapPin,
+  Calendar,
   Users,
   Sparkles
 } from 'lucide-react';
@@ -55,7 +55,7 @@ const InternshipSection = ({ id = 'internships' }) => {
           {/* Track 1: Sports Physiotherapy */}
           <Reveal delay={0.1}>
             <div className="internship-track-card">
-              <div 
+              <div
                 className="internship-track-image"
                 style={{ backgroundImage: `url(${servicePhysio})` }}
               >
@@ -136,7 +136,7 @@ const InternshipSection = ({ id = 'internships' }) => {
           {/* Track 2: Sports Nutrition */}
           <Reveal delay={0.2}>
             <div className="internship-track-card">
-              <div 
+              <div
                 className="internship-track-image"
                 style={{ backgroundImage: `url(${serviceNutrition})` }}
               >
@@ -183,7 +183,7 @@ const InternshipSection = ({ id = 'internships' }) => {
                         <span className="fee-title">M.Sc &ndash; Internship</span>
                         <span className="fee-duration">1 Month advanced performance nutrition</span>
                       </div>
-                      <div className="fee-amount">₹4,720</div>
+                      <div className="fee-amount">₹4,170</div>
                     </div>
                   </div>
                 </div>
@@ -286,7 +286,7 @@ const InternshipSection = ({ id = 'internships' }) => {
               </div>
               <div className="internship-aside-detail">
                 <strong>Location:</strong>
-                <p>Centre For Sports Science, Gate 1, Sree Kanteerava Stadium, Bengaluru, Karnataka 560001</p>
+                <p>Centre For Sports Science, 48 West Gate (Gate No. 8), Sree Kanteerava Stadium, Bengaluru, Karnataka 560001</p>
               </div>
               <div className="internship-aside-detail">
                 <strong>Coordinator Desk:</strong>

@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import Seo from '../components/Seo';
 import InstagramIcon from '../components/InstagramIcon';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 const COUNTRY_CODES = [
   { code: '+91', label: 'India (+91)', length: 10 },
@@ -58,16 +59,53 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+
+    const payload = {
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: `${formData.countryCode} ${formData.phone}`,
+      location: formData.location,
+      source: formData.source,
+      message: formData.message,
+    };
+
+    let submitted = false;
+
+    // 1. Attempt direct Supabase insert
     try {
       const { error } = await supabase.from('enquiries').insert({
-        full_name: formData.fullName,
-        email: formData.email,
-        phone: `${formData.countryCode} ${formData.phone}`,
-        location: formData.location,
-        source: formData.source,
-        message: formData.message,
+        full_name: payload.fullName,
+        email: payload.email,
+        phone: payload.phone,
+        location: payload.location,
+        source: payload.source,
+        message: payload.message,
       });
-      if (error) throw error;
+      if (!error) {
+        submitted = true;
+      }
+    } catch (sbErr) {
+      console.warn('Direct Supabase insert failed, attempting backend fallback...', sbErr);
+    }
+
+    // 2. If Supabase fails, try backend Express API proxy
+    if (!submitted) {
+      try {
+        const res = await fetch('/api/enquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) submitted = true;
+        }
+      } catch (apiErr) {
+        console.warn('Backend API fallback failed:', apiErr);
+      }
+    }
+
+    if (submitted) {
       setStatus('success');
       setFormData({
         fullName: '',
@@ -78,8 +116,7 @@ const Contact = () => {
         source: '',
         message: ''
       });
-    } catch (error) {
-      console.error('Submission error:', error);
+    } else {
       setStatus('error');
     }
   };
@@ -130,8 +167,8 @@ const Contact = () => {
                     <div>
                       <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px' }}>Address</h4>
                       <p style={{ color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                        Centre for sports science, Gate No 8,<br />
-                        Sree Kanteerava Stadium, Bangalore.
+                        Centre For Sports Science, 48 West Gate (Gate No. 8),<br />
+                        Sree Kanteerava Stadium, Bengaluru, Karnataka 560001.
                       </p>
                     </div>
                   </div>
@@ -328,15 +365,47 @@ const Contact = () => {
                   </button>
                   <AnimatePresence>
                     {status === 'error' && (
-                      <motion.p
+                      <motion.div
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.25 }}
-                        style={{ color: '#ef4444', marginTop: '16px', fontSize: '14px', textAlign: 'center' }}
+                        style={{
+                          marginTop: '20px',
+                          padding: '18px',
+                          borderRadius: '12px',
+                          backgroundColor: '#fef2f2',
+                          border: '1px solid #fee2e2',
+                          textAlign: 'center',
+                        }}
                       >
-                        Oops! Something went wrong. Please try again.
-                      </motion.p>
+                        <p style={{ color: '#dc2626', fontSize: '14.5px', fontWeight: 600, marginBottom: '6px' }}>
+                          Unable to submit online at this moment.
+                        </p>
+                        <p style={{ color: '#4b5563', fontSize: '13px', marginBottom: '14px' }}>
+                          You can connect with us directly via WhatsApp or phone to get an immediate response:
+                        </p>
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                          <a
+                            href={`https://wa.me/919113535733?text=${encodeURIComponent(`Hi CSS Team, I would like to make an enquiry.\nName: ${formData.fullName || 'Athlete'}\nPhone: ${formData.countryCode} ${formData.phone}\nMessage: ${formData.message}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-whatsapp"
+                            style={{ padding: '10px 18px', fontSize: '13.5px' }}
+                          >
+                            <WhatsAppIcon size={16} color="#ffffff" />
+                            <span>Send via WhatsApp</span>
+                          </a>
+                          <a
+                            href="tel:+919113535733"
+                            className="btn btn-call"
+                            style={{ padding: '10px 18px', fontSize: '13.5px', color: '#003459 !important', borderColor: '#cbd5e1', backgroundColor: '#ffffff' }}
+                          >
+                            <Phone size={16} color="#003459" />
+                            <span style={{ color: '#003459' }}>Call +91 9113535733</span>
+                          </a>
+                        </div>
+                      </motion.div>
                     )}
                   </AnimatePresence>
                 </motion.form>

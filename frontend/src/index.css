@@ -1192,6 +1192,14 @@ h6,
     font-size: 16px !important;
   }
 
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 1004;
+  }
+
   /* Hamburger Menu Layout Drawer */
   .nav-toggle-label {
     display: flex;
