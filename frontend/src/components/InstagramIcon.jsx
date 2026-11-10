@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import { useId } from 'react';
 
 const InstagramIcon = ({ size = 24, gradient = true, color = 'currentColor' }) => {
   const gradientId = useId();

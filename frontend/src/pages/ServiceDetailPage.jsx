@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useParams, useLocation, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, ArrowLeft } from 'lucide-react';

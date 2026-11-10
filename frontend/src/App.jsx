@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import InstagramIcon from './components/InstagramIcon';
@@ -15,6 +15,7 @@ const TechnologyPage = lazy(() => import('./pages/TechnologyPage'));
 const ContactPage = lazy(() => import('./pages/Contact.jsx'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage'));
+const AdminPage = lazy(() => import('./pages/admin/AdminPage'));
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,13 +32,17 @@ const App = () => {
 
   // Close mobile nav automatically on route or hash changes
   useEffect(() => {
-    setNavOpen(false);
+    const timer = setTimeout(() => setNavOpen(false), 0);
+    return () => clearTimeout(timer);
   }, [location.pathname, location.hash]);
 
   const closeMobileNav = () => setNavOpen(false);
 
-  // Auth pages (login & signup) render their own dedicated full-bleed screen
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+  // Dedicated full-bleed pages (login, signup, admin portal)
+  const isAuthPage =
+    location.pathname === '/login' ||
+    location.pathname === '/signup' ||
+    location.pathname === '/admin';
 
   // Home and Contact have a dark hero directly under the nav, so the transparent
   // white-text navbar is legible there before scrolling. Other pages don't have that
@@ -104,6 +109,7 @@ const App = () => {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
