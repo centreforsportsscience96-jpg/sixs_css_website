@@ -1,4 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  ArrowRight,
+  AlertCircle,
+  ArrowLeft,
+  Loader2,
+} from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import cssLogo from '../../assets/css_logo.png';
 import { groupNotices, formatEventDate, toIndianNumber, waLink } from '../../utils/noticeGroups';
@@ -46,6 +58,7 @@ const AdminPage = () => {
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loginSubmitting, setLoginSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Active dashboard tab ('post', 'manager', 'enquiries')
   const [activeTab, setActiveTab] = useState('manager');
@@ -358,53 +371,132 @@ const AdminPage = () => {
   if (!session || isAdmin !== true) {
     return (
       <div className="admin-root admin-login-wrapper">
-        <div className="admin-login-card">
-          <div className="admin-login-header">
-            <img src={cssLogo} alt="Centre For Sports Science" />
-            <h1>Admin Portal</h1>
-            <p>Authorized personnel only</p>
+        <div className="admin-login-ambient-glow admin-glow-1" />
+        <div className="admin-login-ambient-glow admin-glow-2" />
+        <div className="admin-login-grid-pattern" />
+
+        <div className="admin-login-card-container">
+          <div className="admin-login-top-nav">
+            <Link to="/" className="admin-login-back-btn">
+              <ArrowLeft size={15} />
+              <span>Back to Website</span>
+            </Link>
+            <div className="admin-system-status">
+              <span className="admin-status-dot" />
+              <span>Secure Gateway</span>
+            </div>
           </div>
 
-          {loginError && <div className="admin-alert-error">{loginError}</div>}
-
-          <form onSubmit={handleLogin}>
-            <div className="admin-form-group">
-              <label htmlFor="admin-email">Email Address</label>
-              <input
-                id="admin-email"
-                type="email"
-                required
-                className="admin-form-input"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="admin@sixscss.com"
-                autoComplete="username"
-              />
+          <div className="admin-login-card">
+            <div className="admin-login-brand-badge">
+              <ShieldCheck size={14} className="admin-badge-icon" />
+              <span>Internal Management Console</span>
             </div>
 
-            <div className="admin-form-group">
-              <label htmlFor="admin-password">Password</label>
-              <input
-                id="admin-password"
-                type="password"
-                required
-                className="admin-form-input"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                placeholder="••••••••"
-                autoComplete="current-password"
-              />
+            <div className="admin-login-header">
+              <div className="admin-logo-frame">
+                <img
+                  src={cssLogo}
+                  alt="Centre For Sports Science"
+                  className="admin-login-logo"
+                />
+              </div>
+              <h1 className="admin-login-title">
+                Centre For <span className="admin-title-accent">Sports Science</span>
+              </h1>
+              <p className="admin-login-subtitle">
+                Authorized administrative portal for notices, event broadcasts, and athlete enquiry management.
+              </p>
             </div>
 
-            <button
-              type="submit"
-              disabled={loginSubmitting}
-              className="admin-btn-primary"
-              style={{ marginTop: '24px' }}
-            >
-              {loginSubmitting ? 'Verifying...' : 'Sign In to Portal'}
-            </button>
-          </form>
+            {loginError && (
+              <div className="admin-alert-error admin-alert-animated">
+                <AlertCircle size={18} className="admin-alert-icon" />
+                <span>{loginError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleLogin} className="admin-login-form">
+              <div className="admin-form-group">
+                <label htmlFor="admin-email" className="admin-input-label">
+                  Administrative Email
+                </label>
+                <div className="admin-input-wrapper">
+                  <Mail size={18} className="admin-input-icon" />
+                  <input
+                    id="admin-email"
+                    type="email"
+                    required
+                    className="admin-form-input with-icon"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    placeholder="admin@css.in"
+                    autoComplete="username"
+                  />
+                </div>
+              </div>
+
+              <div className="admin-form-group">
+                <div className="admin-label-row">
+                  <label htmlFor="admin-password" className="admin-input-label">
+                    Security Password
+                  </label>
+                </div>
+                <div className="admin-input-wrapper">
+                  <Lock size={18} className="admin-input-icon" />
+                  <input
+                    id="admin-password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    className="admin-form-input with-icon with-action"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    placeholder="••••••••••••"
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    className="admin-input-action-btn"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loginSubmitting}
+                className="admin-login-submit-btn"
+              >
+                {loginSubmitting ? (
+                  <>
+                    <Loader2 size={18} className="admin-spin-icon" />
+                    <span>Verifying Credentials...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In to Admin Portal</span>
+                    <ArrowRight size={18} />
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="admin-login-card-footer">
+              <div className="admin-security-indicator">
+                <Lock size={12} />
+                <span>256-Bit SSL • RLS Protected</span>
+              </div>
+              <div className="admin-version-tag">CSS CMS v2.4</div>
+            </div>
+          </div>
+
+          <div className="admin-login-outer-footer">
+            <p>© {new Date().getFullYear()} Centre For Sports Science • Kanteerava Stadium</p>
+          </div>
         </div>
       </div>
     );
