@@ -5,14 +5,15 @@ import {
   Lock,
   Eye,
   EyeOff,
-  ShieldCheck,
+  Shield,
   ArrowRight,
   AlertCircle,
-  ArrowLeft,
   Loader2,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import cssLogo from '../../assets/css_logo.png';
+import adminRunner from '../../assets/admin_runner.png';
+import adminRightWave from '../../assets/admin_right_wave.png';
 import { groupNotices, formatEventDate, toIndianNumber, waLink } from '../../utils/noticeGroups';
 import './admin.css';
 
@@ -370,98 +371,120 @@ const AdminPage = () => {
   // 2. Private Login Gate (Not signed in or not an admin)
   if (!session || isAdmin !== true) {
     return (
-      <div className="admin-root admin-login-wrapper">
-        <div className="admin-login-ambient-glow admin-glow-1" />
-        <div className="admin-login-ambient-glow admin-glow-2" />
-        <div className="admin-login-grid-pattern" />
-
-        <div className="admin-login-card-container">
-          <div className="admin-login-top-nav">
-            <Link to="/" className="admin-login-back-btn">
-              <ArrowLeft size={15} />
-              <span>Back to Website</span>
-            </Link>
-            <div className="admin-system-status">
-              <span className="admin-status-dot" />
-              <span>Secure Gateway</span>
+      <div className="admin-root admin-portal-screen">
+        {/* Top Navigation Bar */}
+        <header className="admin-portal-header">
+          <Link to="/" className="admin-portal-brand" title="Back to Home">
+            <img
+              src={cssLogo}
+              alt="Centre For Sports Science"
+              className="admin-portal-logo"
+            />
+            <div className="admin-portal-brand-divider" />
+            <div className="admin-portal-brand-titles">
+              <span>CENTRE FOR</span>
+              <span>SPORTS SCIENCE</span>
             </div>
+          </Link>
+
+          <div className="admin-portal-tagline">
+            <span>ASSESS</span>
+            <span className="admin-tagline-dot">•</span>
+            <span>ANALYSE</span>
+            <span className="admin-tagline-dot">•</span>
+            <span>ACHIEVE</span>
           </div>
+        </header>
 
-          <div className="admin-login-card">
-            <div className="admin-login-brand-badge">
-              <ShieldCheck size={14} className="admin-badge-icon" />
-              <span>Internal Management Console</span>
+        {/* Dynamic Athlete & Wave Art in Background */}
+        <div className="admin-portal-bg">
+          <div
+            className="admin-portal-runner"
+            style={{ backgroundImage: `url(${adminRunner})` }}
+            aria-hidden="true"
+          />
+          <div
+            className="admin-portal-wave"
+            style={{ backgroundImage: `url(${adminRightWave})` }}
+            aria-hidden="true"
+          />
+          <div className="admin-portal-ambient-light" />
+        </div>
+
+        {/* Central Card Container */}
+        <div className="admin-portal-main">
+          <div className="admin-portal-card">
+            {/* Top Emblem with Official Logo */}
+            <div className="admin-portal-emblem">
+              <img
+                src={cssLogo}
+                alt="CSS Emblem"
+                className="admin-emblem-logo"
+              />
             </div>
 
-            <div className="admin-login-header">
-              <div className="admin-logo-frame">
-                <img
-                  src={cssLogo}
-                  alt="Centre For Sports Science"
-                  className="admin-login-logo"
-                />
-              </div>
-              <h1 className="admin-login-title">
-                Centre For <span className="admin-title-accent">Sports Science</span>
-              </h1>
-              <p className="admin-login-subtitle">
-                Authorized administrative portal for notices, event broadcasts, and athlete enquiry management.
-              </p>
-            </div>
+            {/* Title & Subtitle */}
+            <h1 className="admin-card-title">
+              Centre For <span className="admin-accent-text">Sports Science</span>
+            </h1>
+            <p className="admin-card-subtitle">
+              Advance Performance. Build Wellness.
+            </p>
+            <div className="admin-card-accent-bar" />
 
+            {/* Error Message */}
             {loginError && (
               <div className="admin-alert-error admin-alert-animated">
-                <AlertCircle size={18} className="admin-alert-icon" />
+                <AlertCircle size={16} className="admin-alert-icon" />
                 <span>{loginError}</span>
               </div>
             )}
 
-            <form onSubmit={handleLogin} className="admin-login-form">
-              <div className="admin-form-group">
-                <label htmlFor="admin-email" className="admin-input-label">
-                  Administrative Email
+            {/* Form */}
+            <form onSubmit={handleLogin} className="admin-card-form">
+              <div className="admin-input-group">
+                <label htmlFor="admin-email" className="admin-field-label">
+                  ADMINISTRATIVE EMAIL
                 </label>
-                <div className="admin-input-wrapper">
-                  <Mail size={18} className="admin-input-icon" />
+                <div className="admin-field-wrapper">
+                  <Mail size={16} className="admin-field-icon" />
                   <input
                     id="admin-email"
                     type="email"
                     required
-                    className="admin-form-input with-icon"
+                    className="admin-field-input"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="admin@css.in"
+                    placeholder="Enter your email address"
                     autoComplete="username"
                   />
                 </div>
               </div>
 
-              <div className="admin-form-group">
-                <div className="admin-label-row">
-                  <label htmlFor="admin-password" className="admin-input-label">
-                    Security Password
-                  </label>
-                </div>
-                <div className="admin-input-wrapper">
-                  <Lock size={18} className="admin-input-icon" />
+              <div className="admin-input-group">
+                <label htmlFor="admin-password" className="admin-field-label">
+                  SECURITY PASSWORD
+                </label>
+                <div className="admin-field-wrapper">
+                  <Lock size={16} className="admin-field-icon" />
                   <input
                     id="admin-password"
                     type={showPassword ? 'text' : 'password'}
                     required
-                    className="admin-form-input with-icon with-action"
+                    className="admin-field-input with-toggle"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    placeholder="••••••••••••"
+                    placeholder="Enter your password"
                     autoComplete="current-password"
                   />
                   <button
                     type="button"
-                    className="admin-input-action-btn"
+                    className="admin-toggle-password-btn"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                     tabIndex={-1}
                   >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
               </div>
@@ -469,33 +492,37 @@ const AdminPage = () => {
               <button
                 type="submit"
                 disabled={loginSubmitting}
-                className="admin-login-submit-btn"
+                className="admin-portal-submit-btn"
               >
                 {loginSubmitting ? (
                   <>
-                    <Loader2 size={18} className="admin-spin-icon" />
-                    <span>Verifying Credentials...</span>
+                    <Loader2 size={16} className="admin-spin-icon" />
+                    <span>Signing In...</span>
                   </>
                 ) : (
                   <>
                     <span>Sign In to Admin Portal</span>
-                    <ArrowRight size={18} />
+                    <ArrowRight size={16} />
                   </>
                 )}
               </button>
             </form>
 
-            <div className="admin-login-card-footer">
-              <div className="admin-security-indicator">
-                <Lock size={12} />
-                <span>256-Bit SSL • RLS Protected</span>
+            {/* Secure Access Divider */}
+            <div className="admin-secure-divider">
+              <span className="admin-divider-line" />
+              <div className="admin-secure-badge">
+                <Shield size={12} />
+                <span>Secure Access</span>
               </div>
-              <div className="admin-version-tag">CSS CMS v2.4</div>
+              <span className="admin-divider-line" />
             </div>
-          </div>
 
-          <div className="admin-login-outer-footer">
-            <p>© {new Date().getFullYear()} Centre For Sports Science • Kanteerava Stadium</p>
+            {/* Bottom Footer Details */}
+            <div className="admin-portal-card-footer">
+              <span>© {new Date().getFullYear()} Centre for Sports Science</span>
+              <span>Powered by SixS</span>
+            </div>
           </div>
         </div>
       </div>
