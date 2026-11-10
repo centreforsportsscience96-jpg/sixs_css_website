@@ -1,29 +1,20 @@
 import '@testing-library/jest-dom';
 
 // Mock IntersectionObserver for Framer Motion
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-  takeRecords() {
-    return [];
-  }
-};
+if (typeof globalThis.IntersectionObserver === 'undefined') {
+  globalThis.IntersectionObserver = class IntersectionObserver {
+    constructor() {}
+    disconnect() {}
+    observe() {}
+    unobserve() {}
+    takeRecords() {
+      return [];
+    }
+  };
+}
 
-// Mock scrollTo
-window.scrollTo = () => {};
+// Mock window.scrollTo
+if (typeof window !== 'undefined') {
+  window.scrollTo = () => {};
+}
 
-// Mock IntersectionObserver for Framer Motion
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-  takeRecords() {
-    return [];
-  }
-};
-
-// Mock scrollTo
-window.scrollTo = () => {};
