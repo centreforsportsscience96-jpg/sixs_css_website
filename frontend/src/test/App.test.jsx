@@ -12,5 +12,8 @@ describe('Application Smoke Test', () => {
     );
     const elements = screen.getAllByText(/Centre For/i);
     expect(elements.length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Our Staff & Specialists/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Sixs Sports Ecosystem/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Our Leadership/i).length).toBeGreaterThan(0);
   });
 });

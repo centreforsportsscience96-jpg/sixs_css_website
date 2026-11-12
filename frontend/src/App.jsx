@@ -1,6 +1,7 @@
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import InstagramIcon from './components/InstagramIcon';
 import LinkedInIcon from './components/LinkedInIcon';
 import WhatsAppIcon from './components/WhatsAppIcon';
@@ -17,9 +18,18 @@ const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage'));
 const AdminPage = lazy(() => import('./pages/admin/AdminPage'));
 
+const ABOUT_SUBSECTIONS = [
+  { label: 'Overview', to: '/#about-us', id: 'about-us' },
+  { label: 'Sixs Sports Ecosystem', to: '/#ecosystem', id: 'ecosystem' },
+  { label: 'Our Leadership', to: '/#our-director', id: 'our-director' },
+  { label: 'Our Staff & Specialists', to: '/#our-team', id: 'our-team' },
+];
+
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const aboutDropdownRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -30,13 +40,48 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile nav automatically on route or hash changes
   useEffect(() => {
-    const timer = setTimeout(() => setNavOpen(false), 0);
+    const handleOutsideClick = (e) => {
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(e.target)) {
+        setAboutOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setAboutOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // Close mobile nav and dropdown automatically on route or hash changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setNavOpen(false);
+      setAboutOpen(false);
+    }, 0);
     return () => clearTimeout(timer);
   }, [location.pathname, location.hash]);
 
-  const closeMobileNav = () => setNavOpen(false);
+  const closeMobileNav = () => {
+    setNavOpen(false);
+    setAboutOpen(false);
+  };
+
+  const handleSectionLinkClick = (sectionId) => {
+    closeMobileNav();
+    if (location.pathname === '/' && sectionId) {
+      const targetEl = document.getElementById(sectionId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   // Dedicated full-bleed pages (login, signup, admin portal)
   const isAuthPage =
@@ -91,8 +136,43 @@ const App = () => {
               <Link to="/" className="nav-link" onClick={closeMobileNav}>Home</Link>
               <Link to="/services" className="nav-link" onClick={closeMobileNav}>Services</Link>
               <Link to="/technology" className="nav-link" onClick={closeMobileNav}>Technology</Link>
-              <Link to="/#internships" className="nav-link" onClick={closeMobileNav}>Internships</Link>
-              <Link to="/#about-us" className="nav-link" onClick={closeMobileNav}>About Us</Link>
+              <Link
+                to="/#internships"
+                className="nav-link"
+                onClick={() => handleSectionLinkClick('internships')}
+              >
+                Internships
+              </Link>
+
+              <div className="nav-dropdown" ref={aboutDropdownRef}>
+                <button
+                  type="button"
+                  className="nav-link nav-dropdown-trigger"
+                  aria-expanded={aboutOpen}
+                  aria-haspopup="true"
+                  onClick={() => setAboutOpen((open) => !open)}
+                >
+                  About Us
+                  <ChevronDown
+                    size={15}
+                    className={`nav-dropdown-caret${aboutOpen ? ' open' : ''}`}
+                    aria-hidden="true"
+                  />
+                </button>
+                <div className={`nav-dropdown-menu${aboutOpen ? ' open' : ''}`}>
+                  {ABOUT_SUBSECTIONS.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={item.to}
+                      className="nav-dropdown-item"
+                      onClick={() => handleSectionLinkClick(item.id)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
               <Link to="/contact" className="btn btn-primary" style={{ padding: '10px 20px' }} onClick={closeMobileNav}>Contact Us</Link>
             </div>
           </div>
@@ -164,7 +244,6 @@ const App = () => {
                     <h4 className="footer-section-title">HOME</h4>
                     <ul className="footer-links">
                       <li><Link to="/">Home</Link></li>
-                      <li><Link to="/#about-us">About Us</Link></li>
                       <li><Link to="/services">Services</Link></li>
                       <li><Link to="/#internships">Internships</Link></li>
                       <li><Link to="/login">Login</Link></li>
@@ -172,10 +251,24 @@ const App = () => {
                     </ul>
                   </div>
                   <div>
+                    <h4 className="footer-section-title">ABOUT US</h4>
+                    <ul className="footer-links">
+                      {ABOUT_SUBSECTIONS.map((item) => (
+                        <li key={item.id}>
+                          <Link
+                            to={item.to}
+                            onClick={() => handleSectionLinkClick(item.id)}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
                     <h4 className="footer-section-title">TECHNOLOGY</h4>
                     <ul className="footer-links">
                       <li><Link to="/technology">Technology</Link></li>
-                      <li><Link to="/#our-director">Our Team</Link></li>
                       <li><Link to="/technology">Facilities</Link></li>
                       <li><Link to="/contact">Contact Us</Link></li>
                     </ul>

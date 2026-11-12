@@ -11,6 +11,7 @@ import servicePsychology from '../assets/service_psychology.jpg';
 import serviceBiomechanics from '../assets/service_biomechanics.jpeg';
 import serviceNutrition from '../assets/service_nutrition.jpg';
 import InternshipSection from '../components/InternshipSection';
+import StaffSection from '../components/StaffSection';
 
 // Reusable animation wrapper
 const Reveal = ({ children, delay = 0 }) => {
@@ -120,15 +121,15 @@ const Home = () => {
                 <p className="about-text">
                   Our mission is to empower athletes and institutions with data-driven tools that help identify, train, and support every athlete through scientific, sustainable, and intelligent systems.
                 </p>
-                <Link to="/services" className="btn-black">ABOUT US</Link>
+                <Link to="/#our-team" className="btn-black">MEET OUR TEAM</Link>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Sixs Sports Ecosystem Section */}
-      <section className="section bg-light">
+      {/* Sixs Sports Ecosystem Section (About Us Subsection) */}
+      <section id="ecosystem" className="section bg-light">
         <div className="container">
           <Reveal>
             <div className="about-label">
@@ -155,6 +156,57 @@ const Home = () => {
           </Reveal>
         </div>
       </section>
+
+      {/* Leadership Section (About Us Subsection) */}
+      <section id="our-director" className="section" style={{ borderTop: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <Reveal>
+            <div className="about-label">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Our Leadership
+            </div>
+            <p style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 600, marginTop: '12px' }}>
+              "Realizing Talent through Scientific Methodology"
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap', marginTop: '24px' }}>
+              <div
+                style={{
+                  flexShrink: 0,
+                  width: '96px',
+                  height: '96px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--primary-dark) 0%, var(--accent) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '32px',
+                  fontWeight: 700,
+                }}
+              >
+                AC
+              </div>
+              <div style={{ flex: 1, minWidth: '260px' }}>
+                <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '4px' }}>Antony Chacko</h3>
+                <p style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: '16px' }}>Director, Centre For Sports Science</p>
+                <p className="about-text">
+                  Antony Chacko brings a rare blend of sports and technology expertise to Centre For Sports Science. A former Karnataka cricket team player, he went on to build a career in software engineering and as a Technical Lead at Microsoft (EMEA), developing deep expertise in data analytics and root cause analysis. For the past four years, he has directed the Sports Science Centre, leading national talent identification initiatives with the Department of Youth Empowerment and Sports, Social Welfare, and Tribal Departments — including dedicated outreach programs for the Siddhi Tribal Community and athlete scouting for Delhi Sports University.
+                </p>
+                <p className="about-text">
+                  He has trained over 7,500 PE teachers through Train-the-Trainer Sports Science Workshops and driven CSR programs reaching 100+ schools and over 1 lakh students across Karnataka. He also oversees sports science centers in Mandya, Delhi Sports University, and Basavanagudi Aquatic Centre, promoting tech-driven, affordable athlete development platforms powered by data and science.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Staff & Specialists Section (About Us Subsection) */}
+      <StaffSection id="our-team" />
 
       {/* Services Section */}
       <section className="services-section">
@@ -253,7 +305,7 @@ const Home = () => {
       </section>
 
       {/* Why Sports Science Matters Section */}
-      <section className="section">
+      <section className="section bg-light">
         <div className="container">
           <Reveal>
             <h2 className="section-title" style={{ textAlign: 'center' }}>Why Data-Driven Sports Science Matters</h2>
@@ -351,54 +403,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Leadership Section */}
-      <section id="our-director" className="section bg-light">
-        <div className="container">
-          <Reveal>
-            <div className="about-label">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Our Leadership
-            </div>
-            <p style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 600, marginTop: '12px' }}>
-              "Realizing Talent through Scientific Methodology"
-            </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap', marginTop: '24px' }}>
-              <div
-                style={{
-                  flexShrink: 0,
-                  width: '96px',
-                  height: '96px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--primary-dark) 0%, var(--accent) 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '32px',
-                  fontWeight: 700,
-                }}
-              >
-                AC
-              </div>
-              <div style={{ flex: 1, minWidth: '260px' }}>
-                <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '4px' }}>Antony Chacko</h3>
-                <p style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: '16px' }}>Director, Centre For Sports Science</p>
-                <p className="about-text">
-                  Antony Chacko brings a rare blend of sports and technology expertise to Centre For Sports Science. A former Karnataka cricket team player, he went on to build a career in software engineering and as a Technical Lead at Microsoft (EMEA), developing deep expertise in data analytics and root cause analysis. For the past four years, he has directed the Sports Science Centre, leading national talent identification initiatives with the Department of Youth Empowerment and Sports, Social Welfare, and Tribal Departments — including dedicated outreach programs for the Siddhi Tribal Community and athlete scouting for Delhi Sports University.
-                </p>
-                <p className="about-text">
-                  He has trained over 7,500 PE teachers through Train-the-Trainer Sports Science Workshops and driven CSR programs reaching 100+ schools and over 1 lakh students across Karnataka. He also oversees sports science centers in Mandya, Delhi Sports University, and Basavanagudi Aquatic Centre, promoting tech-driven, affordable athlete development platforms powered by data and science.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* Internship & Fellowship Section */}
       <InternshipSection id="internships" />
 
@@ -444,7 +448,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="section">
+      <section className="section bg-light">
         <div className="container">
           <div className="stats-grid">
             <Reveal delay={0.1}>
