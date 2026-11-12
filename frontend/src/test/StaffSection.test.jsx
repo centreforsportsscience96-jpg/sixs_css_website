@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import StaffSection from '../components/StaffSection';
 import AdminPage from '../pages/admin/AdminPage';
+import Home from '../pages/Home';
 
 const mockState = vi.hoisted(() => ({
   staffRows: [],
@@ -324,6 +325,45 @@ describe('StaffSection & Admin Staff Management', () => {
     // Newly added custom department remains selectable for future staff members
     fireEvent.click(screen.getByRole('button', { name: /\+ Add Staff Member/i }));
     expect(await screen.findByRole('option', { name: 'Sports Nutrition' })).toBeInTheDocument();
+  });
+
+  it('renders Leadership profile photo in Our Leadership and excludes it from StaffSection', async () => {
+    mockState.staffRows = [
+      {
+        id: 201,
+        name: 'Antony Chacko',
+        designation: 'Director, Centre For Sports Science',
+        department: 'Leadership',
+        bio: 'Director bio line 1.\nDirector bio line 2.',
+        photo_url: 'https://example.supabase.co/storage/v1/object/public/staff-photos/profiles/antony.jpg',
+        display_order: 1,
+        created_at: '2026-01-01T00:00:00.000Z',
+      },
+      {
+        id: 202,
+        name: 'Dr. Meera Krishnan',
+        designation: 'Head of Sports Physiotherapy',
+        department: 'Sports Physiotherapy',
+        bio: 'Sports physiotherapy lead.',
+        photo_url: null,
+        display_order: 2,
+        created_at: '2026-01-02T00:00:00.000Z',
+      },
+    ];
+
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+
+    const directorImg = await screen.findByAltText(/Antony Chacko/i);
+    expect(directorImg).toHaveAttribute('src', mockState.staffRows[0].photo_url);
+    expect(screen.getByText('Director bio line 1.')).toBeInTheDocument();
+
+    // Antony Chacko appears once (in Our Leadership), not duplicated in Our Staff & Specialists
+    expect(screen.getAllByText('Antony Chacko')).toHaveLength(1);
+    expect(screen.getByText('Dr. Meera Krishnan')).toBeInTheDocument();
   });
 });
 

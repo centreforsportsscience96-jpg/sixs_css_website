@@ -66,6 +66,7 @@ const STAFF_DEPARTMENTS = [
   'Sports Biomechanics',
   'Administration',
   'IT Support',
+  'Leadership',
 ];
 const CUSTOM_DEPARTMENT_VALUE = '__custom__';
 
@@ -1494,6 +1495,11 @@ const AdminPage = () => {
                           placeholder="Enter new role or department (e.g. Sports Nutrition)"
                           aria-label="New Role or Department"
                         />
+                      )}
+                      {staffDepartment === 'Leadership' && (
+                        <p className="admin-card-subtitle-muted" style={{ marginTop: '8px' }}>
+                          Profiles assigned to <strong>Leadership</strong> populate the Our Leadership (Director) section on the home page.
+                        </p>
                       )}
                     </div>
 

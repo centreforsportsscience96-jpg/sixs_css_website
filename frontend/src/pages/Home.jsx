@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShieldCheck, TrendingUp, Activity, Users, Check } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Activity, Users, Check, ArrowUpRight, ArrowDown } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import Seo from '../components/Seo';
 import Counter from '../components/Counter';
 import heroImage from '../assets/hero_image.jpg';
@@ -60,7 +61,113 @@ const HeroBackground = () => {
   );
 };
 
+const DEFAULT_DIRECTOR = {
+  name: 'Antony Chacko',
+  designation: 'Director, Centre For Sports Science',
+  bioParagraphs: [
+    'Antony Chacko brings a rare blend of sports and technology expertise to Centre For Sports Science. A former Karnataka cricket team player, he went on to build a career in software engineering and as a Technical Lead at Microsoft (EMEA), developing deep expertise in data analytics and root cause analysis. For the past four years, he has directed the Sports Science Centre, leading national talent identification initiatives with the Department of Youth Empowerment and Sports, Social Welfare, and Tribal Departments — including dedicated outreach programs for the Siddhi Tribal Community and athlete scouting for Delhi Sports University.',
+    'He has trained over 7,500 PE teachers through Train-the-Trainer Sports Science Workshops and driven CSR programs reaching 100+ schools and over 1 lakh students across Karnataka. He also oversees sports science centers in Mandya, Delhi Sports University, and Basavanagudi Aquatic Centre, promoting tech-driven, affordable athlete development platforms powered by data and science.',
+  ],
+};
+
+const getDirectorInitials = (name = '') => {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'AC';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+};
+
 const Home = () => {
+  const [directorProfile, setDirectorProfile] = useState(null);
+  const [directorPhotoBroken, setDirectorPhotoBroken] = useState(false);
+
+  const fetchDirectorProfile = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('staff_members')
+      .select('*')
+      .order('display_order', { ascending: true })
+      .order('created_at', { ascending: true });
+
+    if (!error && Array.isArray(data)) {
+      const match = data.find(
+        (member) => (member.department || '').trim().toLowerCase() === 'leadership'
+      );
+      setDirectorProfile(match || null);
+      setDirectorPhotoBroken(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadInitialDirector = async () => {
+      const { data, error } = await supabase
+        .from('staff_members')
+        .select('*')
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: true });
+
+      if (!isMounted) return;
+      if (!error && Array.isArray(data)) {
+        const match = data.find(
+          (member) => (member.department || '').trim().toLowerCase() === 'leadership'
+        );
+        setDirectorProfile(match || null);
+        setDirectorPhotoBroken(false);
+      }
+    };
+
+    loadInitialDirector();
+
+    const handleVisibilityRefresh = () => {
+      if (document.visibilityState === 'visible') {
+        fetchDirectorProfile();
+      }
+    };
+
+    const handleFocusRefresh = () => {
+      fetchDirectorProfile();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityRefresh);
+    window.addEventListener('focus', handleFocusRefresh);
+
+    let channel = null;
+    if (typeof supabase.channel === 'function') {
+      channel = supabase
+        .channel('public:leadership_profile')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'staff_members' },
+          () => {
+            fetchDirectorProfile();
+          }
+        )
+        .subscribe();
+    }
+
+    return () => {
+      isMounted = false;
+      document.removeEventListener('visibilitychange', handleVisibilityRefresh);
+      window.removeEventListener('focus', handleFocusRefresh);
+      if (channel && typeof supabase.removeChannel === 'function') {
+        supabase.removeChannel(channel);
+      }
+    };
+  }, [fetchDirectorProfile]);
+
+  const directorName = directorProfile?.name?.trim() || DEFAULT_DIRECTOR.name;
+  const directorDesignation =
+    directorProfile?.designation?.trim() || DEFAULT_DIRECTOR.designation;
+  const directorBioParagraphs = directorProfile?.bio?.trim()
+    ? directorProfile.bio
+        .trim()
+        .split(/\n+/)
+        .map((p) => p.trim())
+        .filter(Boolean)
+    : DEFAULT_DIRECTOR.bioParagraphs;
+  const showDirectorPhoto = Boolean(directorProfile?.photo_url) && !directorPhotoBroken;
+
   return (
     <motion.main
       initial={{ opacity: 0, y: 12 }}
@@ -158,7 +265,7 @@ const Home = () => {
       </section>
 
       {/* Leadership Section (About Us Subsection) */}
-      <section id="our-director" className="section" style={{ borderTop: '1px solid #e2e8f0' }}>
+      <section id="our-director" className="section director-section">
         <div className="container">
           <Reveal>
             <div className="about-label">
@@ -167,38 +274,54 @@ const Home = () => {
               </svg>
               Our Leadership
             </div>
-            <p style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 600, marginTop: '12px' }}>
-              "Realizing Talent through Scientific Methodology"
-            </p>
           </Reveal>
           <Reveal delay={0.1}>
-            <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap', marginTop: '24px' }}>
-              <div
-                style={{
-                  flexShrink: 0,
-                  width: '96px',
-                  height: '96px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--primary-dark) 0%, var(--accent) 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '32px',
-                  fontWeight: 700,
-                }}
-              >
-                AC
+            <div className="director-feature-card">
+              <div className="director-portrait-panel">
+                <div className={`director-portrait-wrap${showDirectorPhoto ? ' has-photo' : ''}`}>
+                  {showDirectorPhoto ? (
+                    <img
+                      src={directorProfile.photo_url}
+                      alt={`${directorName} — ${directorDesignation}`}
+                      className="director-portrait-img"
+                      onError={() => setDirectorPhotoBroken(true)}
+                    />
+                  ) : (
+                    <div className="director-initials-fallback" aria-hidden="true">
+                      {getDirectorInitials(directorName)}
+                    </div>
+                  )}
+                </div>
+
+                <blockquote className="director-motto-box">
+                  &ldquo;Realizing Talent through Scientific Methodology&rdquo;
+                </blockquote>
               </div>
-              <div style={{ flex: 1, minWidth: '260px' }}>
-                <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '4px' }}>Antony Chacko</h3>
-                <p style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: '16px' }}>Director, Centre For Sports Science</p>
-                <p className="about-text">
-                  Antony Chacko brings a rare blend of sports and technology expertise to Centre For Sports Science. A former Karnataka cricket team player, he went on to build a career in software engineering and as a Technical Lead at Microsoft (EMEA), developing deep expertise in data analytics and root cause analysis. For the past four years, he has directed the Sports Science Centre, leading national talent identification initiatives with the Department of Youth Empowerment and Sports, Social Welfare, and Tribal Departments — including dedicated outreach programs for the Siddhi Tribal Community and athlete scouting for Delhi Sports University.
-                </p>
-                <p className="about-text">
-                  He has trained over 7,500 PE teachers through Train-the-Trainer Sports Science Workshops and driven CSR programs reaching 100+ schools and over 1 lakh students across Karnataka. He also oversees sports science centers in Mandya, Delhi Sports University, and Basavanagudi Aquatic Centre, promoting tech-driven, affordable athlete development platforms powered by data and science.
-                </p>
+
+              <div className="director-content-panel">
+                <span className="director-kicker-pill">Executive Leadership</span>
+                <h3 className="director-profile-name">{directorName}</h3>
+                <p className="director-profile-role">{directorDesignation}</p>
+                <div className="director-accent-bar" aria-hidden="true" />
+
+                <div className="director-bio-list">
+                  {directorBioParagraphs.map((paragraph, idx) => (
+                    <p key={idx} className="director-bio-text">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="director-actions-row">
+                  <a href="#our-team" className="director-secondary-action">
+                    <span>Meet Our Specialists</span>
+                    <ArrowDown size={15} />
+                  </a>
+                  <Link to="/contact" className="btn-black director-primary-action">
+                    <span>Connect with Our Team</span>
+                    <ArrowUpRight size={15} />
+                  </Link>
+                </div>
               </div>
             </div>
           </Reveal>

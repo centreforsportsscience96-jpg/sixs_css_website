@@ -100,8 +100,11 @@ const StaffSection = ({ id = 'our-team' }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedMember]);
 
+  const teamMembers = staffMembers.filter(
+    (m) => (m.department || '').trim().toLowerCase() !== 'leadership'
+  );
   const departments = Array.from(
-    new Set(staffMembers.map((m) => (m.department || '').trim()).filter(Boolean))
+    new Set(teamMembers.map((m) => (m.department || '').trim()).filter(Boolean))
   );
   const effectiveDepartment =
     activeDepartment === 'All' || departments.includes(activeDepartment)
@@ -109,8 +112,8 @@ const StaffSection = ({ id = 'our-team' }) => {
       : 'All';
   const visibleMembers =
     effectiveDepartment === 'All'
-      ? staffMembers
-      : staffMembers.filter((m) => (m.department || '').trim() === effectiveDepartment);
+      ? teamMembers
+      : teamMembers.filter((m) => (m.department || '').trim() === effectiveDepartment);
 
   const gridVariantClass =
     visibleMembers.length === 1
@@ -159,7 +162,7 @@ const StaffSection = ({ id = 'our-team' }) => {
               </div>
             ))}
           </div>
-        ) : staffMembers.length === 0 ? (
+        ) : teamMembers.length === 0 ? (
           <div className="staff-empty-card">
             <div className="staff-empty-icon">
               <Users size={26} />
@@ -183,10 +186,10 @@ const StaffSection = ({ id = 'our-team' }) => {
                   className={`staff-filter-pill${effectiveDepartment === 'All' ? ' active' : ''}`}
                   onClick={() => setActiveDepartment('All')}
                 >
-                  All Specialists ({staffMembers.length})
+                  All Specialists ({teamMembers.length})
                 </button>
                 {departments.map((dept) => {
-                  const count = staffMembers.filter(
+                  const count = teamMembers.filter(
                     (m) => (m.department || '').trim() === dept
                   ).length;
                   const isActive = effectiveDepartment === dept;
